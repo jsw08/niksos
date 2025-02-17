@@ -25,6 +25,8 @@
   playerctl = appE pkgs.playerctl;
   brightnessctl = appE pkgs.brightnessctl;
   wpctl = app "${pkgs.wireplumber}/bin/wpctl";
+  grimblast = appE pkgs.grimblast;
+  annotator = appE pkgs.annotator;
 
   pulsemixer = termappE pkgs.pulsemixer;
   bluetui = termappE pkgs.bluetui;
@@ -74,8 +76,11 @@ in {
         "$mod, B, exec, ${bluetui}"
         "$mod, N, exec, ${nmtui}"
         ''
-          $mod, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./status.nix {inherit pkgs;}).script})"'
+          $mod, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./scripts.nix {inherit pkgs;}).statusnotify})"'
         ''
+
+        "$mod, Print, exec, ${grimblast} copy area"
+        ", Print, exec, ${grimblast} save area - | ${annotator} -i"
 
         "$mod, h, movefocus, l"
         "$mod, l, movefocus, r"

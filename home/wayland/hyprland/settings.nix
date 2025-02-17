@@ -84,5 +84,9 @@
       animate_mouse_windowdragging = false;
       vrr = 1;
     };
+
+    windowrulev2 = [
+      "float, class:com.github.phase1geo.annotator"
+    ];
   };
 }

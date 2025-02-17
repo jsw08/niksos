@@ -3,14 +3,10 @@
     ./fuzzel.nix
     ./hyprlock.nix
     ./hyprland
-    ./waybar
   ];
 
-  home.packages = with pkgs; [
-    grim
-    slurp
-    wl-clipboard
-    wlr-randr
+  home.packages = [
+    pkgs.wl-clipboard
   ];
 
   home.sessionVariables = {
