@@ -38,5 +38,10 @@
 
     # Ricing
     stylix.url = "github:danth/stylix";
+
+    ironbar = {
+      url = "github:JakeStanger/ironbar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

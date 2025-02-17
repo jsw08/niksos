@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./virt.nix
   ];
 
   services = {
