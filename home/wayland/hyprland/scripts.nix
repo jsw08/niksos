@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  script = pkgs.writeShellScriptBin "statusnotify" ''
+  statusnotify = pkgs.writeShellScriptBin "statusnotify" ''
     DATE=$(date +%R)
 
     upower -e | grep 'BAT' 2>&1 > /dev/null
