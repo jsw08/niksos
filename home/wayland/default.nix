@@ -3,7 +3,7 @@
     ./fuzzel.nix
     ./hyprlock.nix
     ./hyprland
-    ./waybar.nix
+    ./waybar
   ];
 
   home.packages = with pkgs; [

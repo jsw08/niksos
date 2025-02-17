@@ -3,6 +3,7 @@
     substituters = [
       # high priority since it's almost always used
       "https://cache.nixos.org?priority=10"
+      "https://cache.garnix.io"
 
       # "https://anyrun.cachix.org"
       # "https://fufexan.cachix.org"
@@ -15,6 +16,7 @@
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= "
 
       # "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       # "fufexan.cachix.org-1:LwCDjCJNJQf5XD2BV+yamQIMZfcKWR9ISIFy5curUsY="

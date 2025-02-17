@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib) getExe;
+  inherit (config.lib.stylix.colors) base0D;
 
   runOnce = program: "pgrep ${program} || uwsm app -- ${program}";
   uwsm = getExe pkgs.uwsm;
@@ -72,6 +73,9 @@ in {
         "$mod, A, exec, ${pulsemixer}"
         "$mod, B, exec, ${bluetui}"
         "$mod, N, exec, ${nmtui}"
+        ''
+          $mod, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./status.nix {inherit pkgs;}).script})"'
+        ''
 
         "$mod, h, movefocus, l"
         "$mod, l, movefocus, r"
