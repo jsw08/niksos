@@ -26,7 +26,7 @@
   brightnessctl = appE pkgs.brightnessctl;
   wpctl = app "${pkgs.wireplumber}/bin/wpctl";
   grimblast = appE pkgs.grimblast;
-  annotator = appE pkgs.annotator;
+  swappy = appE pkgs.swappy;
 
   pulsemixer = termappE pkgs.pulsemixer;
   bluetui = termappE pkgs.bluetui;
@@ -80,7 +80,7 @@ in {
         ''
 
         "$mod, Print, exec, ${grimblast} copy area"
-        ", Print, exec, ${grimblast} save area - | ${annotator} -i"
+        ", Print, exec, ${grimblast} save area - | ${swappy} -f -"
 
         "$mod, h, movefocus, l"
         "$mod, l, movefocus, r"
