@@ -39,8 +39,8 @@
     # Ricing
     stylix.url = "github:danth/stylix";
 
-    ironbar = {
-      url = "github:JakeStanger/ironbar";
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
