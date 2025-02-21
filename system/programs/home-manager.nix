@@ -1,4 +1,8 @@
-{inputs, specialArgs, config, ...}: {
+{
+  inputs,
+  specialArgs,
+  ...
+}: {
   imports = [
     inputs.hm.nixosModules.default
   ];
@@ -7,6 +11,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = specialArgs;
+    backupFileExtension = "backup";
 
     users.jsw = import ../../home;
   };

@@ -3,6 +3,7 @@
     ./wayland
     ./shell
     ./style
+    ./programs
   ];
 
   home = {

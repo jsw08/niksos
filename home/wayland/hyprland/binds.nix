@@ -21,7 +21,7 @@
 
   foot = appE pkgs.foot;
   fuzzel = appE config.programs.fuzzel.package;
-  firefox = appE pkgs.firefox;
+  firefox = appE config.programs.firefox.package;
   playerctl = appE pkgs.playerctl;
   brightnessctl = appE pkgs.brightnessctl;
   wpctl = app "${pkgs.wireplumber}/bin/wpctl";

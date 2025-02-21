@@ -4,6 +4,8 @@
     ./virt.nix
   ];
 
+  virtualisation.docker.enable = true;
+
   services = {
     fprintd.enable = true;
     udev.extraRules = ''
