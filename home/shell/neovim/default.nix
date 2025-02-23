@@ -1,9 +1,4 @@
-{
-  config,
-  inputs,
-  pkgs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [inputs.nvf.homeManagerModules.default];
 
   programs.nvf = {
@@ -20,16 +15,17 @@
             mode = ["n"];
             action = "<cmd>nohlsearch<CR>";
           }
-          {
-            key = "<leader>q";
-            mode = ["n"];
-            action = ":lua vim.diagnostic.setloclist()";
-          }
 
           {
             key = "<Esc><Esc>";
             mode = ["t"];
             action = "<C-\\><C-n>";
+          }
+
+          {
+            key = "\\";
+            mode = ["t"];
+            action = "<cmd>Neotree  <CR>";
           }
         ]
         ++ builtins.map (x: {
@@ -38,65 +34,83 @@
           mode = "n";
         }) ["h" "j" "k" "l"];
       useSystemClipboard = true;
-
-      ui = {
-        smartcolumn.enable = true; # Changes cursor color depending on mode.
-        illuminate.enable = true; #
-        modes-nvim.enable = true;
-        noice.enable = true;
+      binds = {
+        whichKey.enable = true;
+        cheatsheet.enable = true;
       };
-      treesitter.enable = true;
+      options.shiftwidth = 2;
+      languages = {
+        enableLSP = true; # Thses options enable the things automatically for every language.
+        enableFormat = true; #You can also manually overwrite each language.
+        enableTreesitter = true;
 
+        bash.enable = true;
+        css.enable = true;
+        html.enable = true;
+        markdown.enable = true;
+        nix.enable = true;
+        svelte.enable = false;
+        ts.enable = true;
+        typst.enable = true;
+      };
       lsp = {
-        lspconfig.enable = true;
-        enable = true;
         formatOnSave = true;
-        lightbulb.enable = true;
-        lspSignature.enable = true;
+        lspkind.enable = true; # Autocomplete icons
+        lightbulb.enable = true; # Lightbulb icon when lsp is available
+        trouble.enable = true; # Adds error view
+        lspSignature.enable = true; # Shows function properties while typing
         mappings = {
-          hover = "<leader>h";
+          hover = "gh";
           codeAction = "<leader>.";
         };
       };
-      languages = {
-        nix = {
-          enable = true;
-          format.enable = true;
-          lsp.enable = true;
-          treesitter.enable = true;
-        };
-        ts = {
-          enable = true;
-          lsp.enable = true;
-          treesitter.enable = true;
-          extensions.ts-error-translator.enable = true;
-        };
-      };
-
-      telescope = {
-        enable = true;
-        setupOpts.defaults.vimgrep_arguments = [
-          "${pkgs.ripgrep}/bin/rg"
-          "--color=never"
-          "--no-heading"
-          "--with-filename"
-          "--line-number"
-          "--column"
-          "--smart-case"
-          "--hidden"
-        ];
-        mappings.liveGrep = "<leader>/";
-      };
-
-      utility = {
-        motion.precognition.enable = true;
-        ccc.enable = true;
-      };
-      mini.surround.enable = true;
       autopairs.nvim-autopairs.enable = true;
-      binds.whichKey.enable = true;
+      autocomplete.nvim-cmp.enable = true;
+      snippets.luasnip.enable = true;
+      mini.surround.enable = true;
+      theme = {
+        enable = true;
+        name = "catppuccin";
+        style = "mocha";
+        transparent = false;
+      };
 
-      theme.enable = true;
+      dashboard.alpha.enable = true;
+      filetree.nvimtree = {
+        enable = true; #TODO: Change mapping
+        openOnStartup = false;
+        mappings.toggle = "\\";
+      };
+      git = {
+        enable = true;
+        gitsigns.enable = true;
+        gitsigns.codeActions.enable = false;
+      };
+      notes.todo-comments.enable = true;
+      notify.nvim-notify.enable = true;
+      presence.neocord.enable = true;
+      statusline.lualine.enable = true;
+      telescope.enable = true;
+      terminal.toggleterm = {
+        enable = true;
+        lazygit.enable = true;
+        mappings.open = "<leader>s";
+      }; #TODO: Keybinds
+      treesitter.context.enable = true;
+      ui = {
+        noice.enable = true;
+        colorizer.enable = true;
+        smartcolumn. enable = true;
+      };
+      utility.vim-wakatime.enable = true;
+      visuals = {
+        nvim-web-devicons.enable = true;
+        nvim-cursorline.enable = true;
+        cinnamon-nvim.enable = true;
+        fidget-nvim.enable = true;
+        highlight-undo.enable = true;
+        indent-blankline.enable = true;
+      };
     };
   };
 }

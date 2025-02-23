@@ -59,6 +59,7 @@
       isDefault = true;
 
       search = {
+        force = true;
         default = "DuckDuckGo";
         order = [
           "DuckDuckGo"
