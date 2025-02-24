@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   imports = [
     ./fuzzel.nix
-    ./hyprlock.nix
     ./hyprland
+    ./hyprlock.nix
+    ./mako.nix
   ];
 
   home.packages = [

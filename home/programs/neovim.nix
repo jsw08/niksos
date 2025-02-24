@@ -52,6 +52,7 @@
         svelte.enable = false;
         ts.enable = true;
         typst.enable = true;
+        rust.enable = true;
       };
       lsp = {
         formatOnSave = true;
@@ -76,9 +77,9 @@
       };
 
       dashboard.alpha.enable = true;
-      filetree.nvimtree = {
+      filetree.nvimTree = {
         enable = true; #TODO: Change mapping
-        openOnStartup = false;
+        openOnSetup = false;
         mappings.toggle = "\\";
       };
       git = {
