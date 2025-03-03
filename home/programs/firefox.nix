@@ -47,7 +47,7 @@
             "uBlock0@raymondhill.net".install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"; # Ublock Origin
             "{446900e4-71c2-419f-a6a7-df9c091e268b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"; # Bitwarden
             "jid1-QoFqdK4qzUfGWQ@jetpack".install_url = "https://addons.mozilla.org/firefox/downloads/latest/dark-background-light-text/latest.xpi"; # Dark reader alternative
-            "{34daeb50-c2d2-4f14-886a-7160b24d66a4}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-shorts-block/latest.xpi"; # Youtube short blocker
+            # "{34daeb50-c2d2-4f14-886a-7160b24d66a4}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-shorts-block/latest.xpi"; # Youtube short blocker
             "vimium-c@gdh1995.cn".install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi"; # Extension info here.
           };
       };
