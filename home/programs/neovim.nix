@@ -94,7 +94,6 @@
       };
       notes.todo-comments.enable = true;
       notify.nvim-notify.enable = true;
-      presence.neocord.enable = true;
       statusline.lualine.enable = true;
       telescope.enable = true;
       terminal.toggleterm = {
