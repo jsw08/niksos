@@ -1,8 +1,12 @@
-{config, ...}: let
+{
+  config,
+  osConfig,
+  ...
+}: let
   inherit (config.lib.stylix.colors) base05;
 in {
   programs.hyprlock = {
-    enable = true;
+    enable = osConfig.niksos.desktop;
 
     settings = {
       general = {

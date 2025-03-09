@@ -1,4 +1,5 @@
 {
+  osConfig,
   lib,
   pkgs,
   ...
@@ -14,10 +15,11 @@ in {
   ];
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = osConfig.niksos.desktop;
     settings = {
       env = [
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "NIXOS_OZONE_WL,1"
       ];
       exec-once = [
         "${uwsm} finalize"

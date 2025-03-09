@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   lib,
   pkgs,
   ...
@@ -49,68 +50,74 @@
     )
     10);
 in {
-  wayland.windowManager.hyprland.settings = {
-    "$mod" = "ALT";
+  config = lib.mkIf osConfig.niksos.desktop {
+    home.file.".XCompose".text = ''
+      <Multi_key> <s> <h> <r> <u> <g> : "¯\\_(ツ)_/¯" # Shrug.
+    '';
 
-    bindm = [
-      "$mod, mouse:272, movewindow"
-      "$mod, mouse:273, resizewindow"
-      "$mod ALT, mouse:272, resizewindow"
-    ];
+    wayland.windowManager.hyprland.settings = {
+      "$mod" = "ALT";
 
-    bind =
-      [
-        "$mod SHIFT, E, exec, uwsm stop"
-        "$mod, Q, killactive,"
-        "$mod, F, fullscreen,"
-        "$mod, SPACE, togglefloating,"
-        "$mod, O, pseudo,"
-        "$mod ALT, ,resizeactive,"
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+        "$mod ALT, mouse:272, resizewindow"
+      ];
 
-        "$mod, D, exec, ${fuzzel}"
-        "$mod, Return, exec, ${foot}"
-        "$mod Shift, Return, exec, ${firefox}"
-        "$mod, Escape, exec, ${hyprlock}"
+      bind =
+        [
+          "$mod SHIFT, E, exec, uwsm stop"
+          "$mod, Q, killactive,"
+          "$mod, F, fullscreen,"
+          "$mod, SPACE, togglefloating,"
+          "$mod, O, pseudo,"
+          "$mod ALT, ,resizeactive,"
 
-        "$mod, A, exec, ${pulsemixer}"
-        "$mod, B, exec, ${bluetui}"
-        "$mod, N, exec, ${nmtui}"
-        ''
-          $mod, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./scripts.nix {inherit pkgs;}).statusnotify})"'
-        ''
+          "$mod, D, exec, ${fuzzel}"
+          "$mod, Return, exec, ${foot}"
+          "$mod Shift, Return, exec, ${firefox}"
+          "$mod, Escape, exec, ${hyprlock}"
 
-        "$mod, Print, exec, ${grimblast} copy area"
-        ", Print, exec, ${grimblast} save area - | ${swappy} -f -"
+          "$mod, A, exec, ${pulsemixer}"
+          "$mod, B, exec, ${bluetui}"
+          "$mod, N, exec, ${nmtui}"
+          ''
+            $mod, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./scripts.nix {inherit pkgs;}).statusnotify})"'
+          ''
 
-        "$mod, h, movefocus, l"
-        "$mod, l, movefocus, r"
-        "$mod, k, movefocus, u"
-        "$mod, j, movefocus, d"
+          "$mod, Print, exec, ${grimblast} copy area"
+          ", Print, exec, ${grimblast} save area - | ${swappy} -f -"
 
-        "$mod SHIFT, h, movewindow, l"
-        "$mod SHIFT, l, movewindow, r"
-        "$mod SHIFT, k, movewindow, u"
-        "$mod SHIFT, j, movewindow, d"
-      ]
-      ++ workspaces;
+          "$mod, h, movefocus, l"
+          "$mod, l, movefocus, r"
+          "$mod, k, movefocus, u"
+          "$mod, j, movefocus, d"
 
-    bindl = [
-      # media controls
-      ", XF86AudioPlay, exec, ${playerctl} play-pause"
-      ", XF86AudioPrev, exec, ${playerctl} previous"
-      ", XF86AudioNext, exec, ${playerctl} next"
+          "$mod SHIFT, h, movewindow, l"
+          "$mod SHIFT, l, movewindow, r"
+          "$mod SHIFT, k, movewindow, u"
+          "$mod SHIFT, j, movewindow, d"
+        ]
+        ++ workspaces;
 
-      # volume
-      ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-    ];
+      bindl = [
+        # media controls
+        ", XF86AudioPlay, exec, ${playerctl} play-pause"
+        ", XF86AudioPrev, exec, ${playerctl} previous"
+        ", XF86AudioNext, exec, ${playerctl} next"
 
-    bindle = [
-      # volume
-      ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
-      ", XF86AudioLowerVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
-      ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
-      ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
-    ];
+        # volume
+        ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ];
+
+      bindle = [
+        # volume
+        ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
+        ", XF86AudioLowerVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
+        ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
+        ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
+      ];
+    };
   };
 }

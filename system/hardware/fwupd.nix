@@ -1,3 +1,3 @@
-{
-  services.fwupd.enable = true;
+{lib, ...}: {
+  services.fwupd.enable = lib.mkDefault true;
 }

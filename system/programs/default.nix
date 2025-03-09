@@ -1,10 +1,10 @@
 {
   imports = [
     ./fish.nix
-    ./fonts.nix
     ./games.nix
     ./home-manager.nix
     ./hyprland.nix
+    ./neovim.nix
     ./polkit.nix
     ./xdg.nix
   ];

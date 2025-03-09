@@ -4,6 +4,6 @@
     ./kanata.nix
     ./pipewire.nix
     ./power.nix
-    ./tailscale.nix
+    ./ssh.nix
   ];
 }

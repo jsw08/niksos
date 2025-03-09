@@ -1,6 +1,11 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
+    user.services.polkit-gnome-authentication-agent-1 = lib.mkIf config.niksos.desktop {
       description = "polkit-gnome-authentication-agent-1";
       wantedBy = ["graphical-session.target"];
       wants = ["graphical-session.target"];

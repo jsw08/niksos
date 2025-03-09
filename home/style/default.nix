@@ -1,4 +1,5 @@
 {
+  osConfig,
   config,
   inputs,
   pkgs,
@@ -9,7 +10,7 @@
   ];
 
   stylix = {
-    enable = true;
+    enable = osConfig.niksos.desktop;
 
     image = ./background.png;
     polarity = "dark";
@@ -25,9 +26,14 @@
     };
     iconTheme = {
       enable = true;
-      package = pkgs.tela-circle-icon-theme; #FIXME: Swap out for normal tela icons once https://github.com/NixOS/nixpkgs/issues/381521 is upstream.
-      dark = "Tela-circle-dark";
-      light = "Tela-circle-dark";
+      package = pkgs.tela-icon-theme;
+      dark = "Tela-dark";
+      light = "Tela-dark";
+    };
+
+    targets = {
+      gnome-text-editor.enable = false; # Creates an overlay in home-manager land which isn't allowed with globalPkgs.
+      nvf.enable = false; # I'd like to be able to read my code, thank you.
     };
 
     #    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
