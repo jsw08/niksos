@@ -1,5 +1,6 @@
 {
   imports = [
+    ./direnv.nix
     ./fish.nix
     ./other.nix
     ./repl
