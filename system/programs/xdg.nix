@@ -1,5 +1,10 @@
-{pkgs, ...}: {
-  xdg.portal = {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  xdg.portal = lib.mkIf config.niksos.desktop {
     enable = true;
     xdgOpenUsePortal = true;
     config = {

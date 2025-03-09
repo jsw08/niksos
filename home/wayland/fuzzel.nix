@@ -1,11 +1,11 @@
 {
-  config,
+  osConfig,
   pkgs,
   lib,
   ...
 }: {
   programs.fuzzel = {
-    enable = true;
+    enable = osConfig.niksos.desktop;
     settings.main = {
       launch-prefix = "${lib.getExe pkgs.uwsm} app --";
     };

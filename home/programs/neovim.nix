@@ -1,8 +1,12 @@
-{inputs, ...}: {
+{
+  inputs,
+  osConfig,
+  ...
+}: {
   imports = [inputs.nvf.homeManagerModules.default];
 
   programs.nvf = {
-    enable = true;
+    enable = osConfig.niksos.neovim;
     settings.vim = {
       viAlias = true;
       vimAlias = true;
@@ -69,6 +73,7 @@
       autocomplete.nvim-cmp.enable = true;
       snippets.luasnip.enable = true;
       mini.surround.enable = true;
+      # This can also be themed with stylix. Remove `targets.nvf.enable = false` in `../style/default.nix`
       theme = {
         enable = true;
         name = "catppuccin";

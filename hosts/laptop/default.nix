@@ -4,6 +4,15 @@
     ./virt.nix
   ];
 
+  niksos = {
+    bluetooth = true;
+    fingerprint = true;
+    games = true;
+    desktop = true;
+    portable = true;
+    neovim = true;
+  };
+
   home-manager.users.jsw.wayland.windowManager.hyprland.settings.monitor = ["eDP-1,2880x1920@120,0x0,1.5,vrr,1"];
   services = {
     fprintd.enable = true;
