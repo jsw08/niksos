@@ -9,6 +9,7 @@
     ./nh.nix
     ./nixpkgs.nix
     ./substituters.nix
+    ./nix-index.nix
   ];
 
   # we need git for flakes
