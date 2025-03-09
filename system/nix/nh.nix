@@ -4,8 +4,8 @@
     # weekly cleanup
     clean = {
       enable = true;
-      extraArgs = "--keep-since 30d";
+      extraArgs = "--keep-since 7d";
     };
-    flake = "/home/jsw/NixOS";
+    flake = "/home/jsw/NiksOS";
   };
 }
