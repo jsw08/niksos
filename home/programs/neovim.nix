@@ -57,6 +57,7 @@
         ts.enable = true;
         typst.enable = true;
         rust.enable = true;
+        python.enable = true;
       };
       lsp = {
         formatOnSave = true;
