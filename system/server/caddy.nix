@@ -15,7 +15,6 @@
       http_port 80
       https_port 443
       auto_https off
-      bind 192.168.1.114
     '';
   };
 
