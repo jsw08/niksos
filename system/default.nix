@@ -5,6 +5,7 @@
     ./network
     ./nix
     ./programs
+    ./server
     ./services
   ];
 }

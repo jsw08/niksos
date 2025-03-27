@@ -16,6 +16,7 @@ in {
   flake = let
     systems = [
       "laptop"
+      "lapserv"
       "minimal"
     ];
   in {
