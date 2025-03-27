@@ -1,4 +1,4 @@
 {lib, ...}: {
-  imports = [./caddy.nix];
-  options.niksos.server.enable = lib.mKEnableOption "server servcies (such as caddy).";
+  imports = [./caddy.nix ./transfer-sh.nix];
+  options.niksos.server = lib.mkEnableOption "server servcies (such as caddy)."; #TODO: per service option.
 }
