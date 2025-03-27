@@ -3,6 +3,7 @@
   osConfig,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (lib) getExe;
@@ -20,7 +21,7 @@
   termapp = termapp: "${foot} '${termapp}'";
   termappE = termappE: termapp (getExe termappE);
 
-  foot = appE pkgs.foot;
+  foot = appE config.programs.foot.package;
   fuzzel = appE config.programs.fuzzel.package;
   firefox = appE config.programs.firefox.package;
   playerctl = appE pkgs.playerctl;
@@ -32,6 +33,16 @@
   pulsemixer = termappE pkgs.pulsemixer;
   bluetui = termappE pkgs.bluetui;
   nmtui = termapp "${pkgs.networkmanager}/bin/nmtui";
+
+  somcli = let
+    interactiveSom = pkgs.writeShellScriptBin "somcli" ''
+      ${getExe inputs.somcli.defaultPackage.${pkgs.system}} && sleep 5
+    '';
+    termSom = pkgs.writeShellScriptBin "somfoot" ''
+      ${foot} -a "foot-somcli" ${getExe interactiveSom}
+    '';
+  in
+    appE termSom;
 
   # toggle = program: let
   #   prog = builtins.substring 0 14 program;
@@ -77,6 +88,7 @@ in {
           "$mod, Return, exec, ${foot}"
           "$mod Shift, Return, exec, ${firefox}"
           "$mod, Escape, exec, ${hyprlock}"
+          "$mod Shift, S, exec, ${somcli}"
 
           "$mod, A, exec, ${pulsemixer}"
           "$mod, B, exec, ${bluetui}"
@@ -98,7 +110,14 @@ in {
           "$mod SHIFT, k, movewindow, u"
           "$mod SHIFT, j, movewindow, d"
         ]
-        ++ workspaces;
+        ++ workspaces
+        ++ lib.optionals osConfig.niksos.games (let
+          suyu = "${appE pkgs.suyu} -ql";
+          dolphin = appE pkgs.dolphin-emu;
+        in [
+          "Super, s, exec, ${suyu}"
+          "Super, d, exec, ${dolphin}"
+        ]);
 
       bindl = [
         # media controls

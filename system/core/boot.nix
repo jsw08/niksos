@@ -1,8 +1,11 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}: {
+}: let
+  plymouth = config.boot.plymouth.enable;
+in {
   boot = {
     bootspec.enable = true;
 
@@ -15,7 +18,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
 
     consoleLogLevel = 3;
-    kernelParams = [
+    kernelParams = lib.mkIf plymouth [
       "quiet"
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
@@ -30,6 +33,6 @@
       timeout = 0;
     };
 
-    plymouth.enable = true;
+    plymouth.enable = lib.mkDefault true;
   };
 }

@@ -1,5 +1,9 @@
 {
   wayland.windowManager.hyprland.settings = {
+    xwayland = {
+      force_zero_scaling = true;
+    };
+
     general = {
       gaps_in = 5;
       gaps_out = 5;
@@ -86,7 +90,10 @@
     };
 
     windowrulev2 = [
+      # FIXME: change to `windowrule` after hyprland update.
       "float, class:com.github.phase1geo.annotator"
+      "float, class:foot-somcli"
+      "size >30% >30%, class:foot-somcli"
     ];
   };
 }

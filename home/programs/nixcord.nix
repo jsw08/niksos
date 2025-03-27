@@ -1,8 +1,12 @@
-{inputs, ...}: {
+{
+  inputs,
+  osConfig,
+  ...
+}: {
   imports = [inputs.nixcord.homeManagerModules.nixcord];
 
   programs.nixcord = {
-    enable = true;
+    enable = osConfig.niksos.neovim;
 
     discord.enable = false;
     vesktop.enable = true;

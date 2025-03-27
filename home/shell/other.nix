@@ -1,11 +1,19 @@
-{pkgs, ...}: {
-  home.packages = [
-    pkgs.gh
-    pkgs.ripgrep
-
-    pkgs.ear2ctl # FIXME: only when bluetooth enabled
-    pkgs.bluetui
-
-    pkgs.typst #FIXME:  move to flake shell
-  ];
+{
+  pkgs,
+  lib,
+  osConfig,
+  inputs,
+  ...
+}: {
+  home.packages =
+    [
+      pkgs.gh
+      pkgs.ripgrep
+    ]
+    ++ lib.optionals osConfig.niksos.desktop [
+      inputs.somcli.defaultPackage.${pkgs.system}
+    ]
+    ++ lib.optionals osConfig.niksos.bluetooth [
+      pkgs.ear2ctl
+    ];
 }
