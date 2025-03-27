@@ -46,5 +46,7 @@
 
     nixcord.url = "github:kaylorben/nixcord";
     somcli.url = "github:jsw08/somcli";
+
+    agenix.url = "github:ryantm/agenix";
   };
 }

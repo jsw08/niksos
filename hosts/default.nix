@@ -9,8 +9,10 @@
   specialArgs = {inherit inputs self;};
   modules = [
     inputs.hm.nixosModules.home-manager
+    inputs.agenix.nixosModules.default
 
     ../system
+    ../secrets
   ];
 in {
   flake = let

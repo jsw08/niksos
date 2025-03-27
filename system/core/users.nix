@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   users.users.jsw = {
     isNormalUser = true;
     shell = pkgs.fish;
-    initialPassword = "changeme";
+    hashedPasswordFile = config.age.secrets.password.path;
     extraGroups = [
       "libvirtd"
       "NetworkManager"
