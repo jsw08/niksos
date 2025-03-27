@@ -60,5 +60,8 @@
         gamescopeSession.enable = true;
       };
     };
+    environment.variables = {
+      "STEAM_FORCE_DESKTOP_UI_SCALING" = "1.5";
+    };
   };
 }

@@ -16,6 +16,7 @@ in {
   flake = let
     systems = [
       "laptop"
+      "minimal"
     ];
   in {
     # Systems
@@ -45,10 +46,16 @@ in {
         modules
         ++ [
           {
+            boot.plymouth.enable = false;
+            services.fwupd.enable = false;
             networking.hostName = "vm";
-            nixpkgs.hostPlatform = pkgs.system;
 
-            boot.plymouth.enable = lib.mkForce false;
+            niksos = {
+              desktop = true;
+              neovim = true;
+            };
+
+            nixpkgs.hostPlatform = pkgs.system;
           }
         ];
     };
