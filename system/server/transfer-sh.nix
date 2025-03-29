@@ -17,5 +17,10 @@
     StateDirectoryMode = "0750";
   };
 
-  #TODO: caddy
+  services.caddy.virtualHosts."share.jsw.tf" = {
+    serverAliases = ["www.share.jsw.tf"];
+    extraConfig = ''
+      reverse_proxy :9000
+    '';
+  };
 }
