@@ -29,6 +29,7 @@
   inputs = {
     # Nixpkgs and other core shit
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small"; # build error unrelated to config.
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11-small";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     hm = {
@@ -38,15 +39,13 @@
 
     # Ricing
     stylix.url = "github:danth/stylix";
+    agenix.url = "github:ryantm/agenix";
 
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nixcord.url = "github:kaylorben/nixcord";
     somcli.url = "github:jsw08/somcli";
-
-    agenix.url = "github:ryantm/agenix";
   };
 }
