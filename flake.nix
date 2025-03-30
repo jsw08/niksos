@@ -29,6 +29,7 @@
   inputs = {
     # Nixpkgs and other core shit
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small"; # build error unrelated to config.
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11-small"; # build error unrelated to config.
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     hm = {
