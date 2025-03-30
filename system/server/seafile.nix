@@ -1,6 +1,6 @@
-{inputs, pkgs, ...}: {
+{config, inputs, pkgs, ...}:{
   services.seafile = {
-    enable = true;
+    enable = config.niksos.server;
     seahubPackage = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.seahub;
 
     adminEmail = "jurnwubben@gmail.com";
@@ -16,8 +16,12 @@ CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_TRUSTED_ORIGINS = ['https://files.jsw.tf', 'https://www.files.jsw.tf']
     '';
     seafileSettings = {
+      quota.default = 30;
+      history.keep_days = 40;
+      library_trash.expire_days = 14;
       fileserver = {
-        host = "unix:/run/seafile/server.sock";
+	host = "unix:/run/seafile/server.sock";
+	web_token_expire_time = 14400; # 4 hours 
       };
     };
   };
