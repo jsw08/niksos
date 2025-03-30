@@ -537,6 +537,22 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/072a6db25e947df2f31aab9eccd0ab75d5b2da11.tar.gz"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1743161759,
+        "narHash": "sha256-AJJy0SKtqLld9JPYi/yvI2P6qCNpcjExHuniZbRSklk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "873f4b2202bdac3845fa5ae294cfa2748ef0667e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.11-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1737003892,
@@ -702,6 +718,7 @@
         "hm": "hm",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-stable": "nixpkgs-stable",
         "nvf": "nvf",
         "somcli": "somcli",
         "stylix": "stylix"
