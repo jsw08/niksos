@@ -9,4 +9,5 @@ let
 in {
   "transfer-sh.age".publicKeys = systems;
   "password.age".publicKeys = systems;
+  "dcbot.age".publicKeys = systems;
 }
