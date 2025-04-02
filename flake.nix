@@ -47,6 +47,10 @@
 
     nixcord.url = "github:kaylorben/nixcord";
     somcli.url = "github:jsw08/somcli";
+    dcbot = {
+      url = "github:jsw08/dcbot";
+      flake = false;
+    };
 
     agenix.url = "github:ryantm/agenix";
   };

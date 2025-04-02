@@ -110,6 +110,22 @@
         "type": "github"
       }
     },
+    "dcbot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739659068,
+        "narHash": "sha256-MLl4wWl5mcOpz17lWDfPypSPH9jc5vKKifvfl00mkMQ=",
+        "owner": "jsw08",
+        "repo": "dcbot",
+        "rev": "6c7e4dd0dc9bd580a67e1f00ba0b6e05f7a85bf5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jsw08",
+        "repo": "dcbot",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -714,6 +730,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "dcbot": "dcbot",
         "flake-parts": "flake-parts",
         "hm": "hm",
         "nixcord": "nixcord",
