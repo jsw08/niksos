@@ -31,13 +31,13 @@ in {
         export PATH=${path}
 
         cd "${mainDir}"
+        mkdir -p "${programDir}" "${dataDir}" "${denoDir}"
+
         chown -R dcbot:dcbot ${mainDir}* || echo
         chmod -R 750 ${mainDir}* || echo
-
-        mkdir -p "${programDir}" "${dataDir}" "${denoDir}"
         cp --no-preserve=mode,ownership -r ${inputs.dcbot}/* "${programDir}/"
 
-        rm "${dataDir}/.env"
+        rm "${dataDir}/.env" || echo
         ln -s "${config.age.secrets.dcbot.path}" "${dataDir}/.env"
 
         cd "${programDir}"
