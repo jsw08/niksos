@@ -52,6 +52,13 @@ in {
       };
     };
 
+    services.caddy.virtualHosts."dc.jsw.tf" = {
+      serverAliases = ["www.dc.jsw.tf"];
+      extraConfig = ''
+        reverse_proxy :9001
+      '';
+    };
+
     users.groups."dcbot" = {};
     users.users."dcbot" = {
       group = "dcbot";
