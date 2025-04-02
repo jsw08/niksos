@@ -14,6 +14,9 @@ ALLOWED_HOSTS = ['.files.jsw.tf']
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_TRUSTED_ORIGINS = ['https://files.jsw.tf', 'https://www.files.jsw.tf']
+
+SITE_NAME = "JSW Cloud"
+SITE_TITLE = "JSW Cloud"
     '';
     seafileSettings = {
       quota.default = 30;
