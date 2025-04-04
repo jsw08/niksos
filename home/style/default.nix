@@ -1,8 +1,8 @@
 {
   osConfig,
-  config,
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -11,6 +11,7 @@
 
   stylix = {
     enable = osConfig.niksos.desktop;
+    autoEnable = lib.mkDefault true;
 
     image = ./background.png;
     polarity = "dark";
