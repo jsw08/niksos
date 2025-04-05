@@ -20,13 +20,9 @@ in {
     portable = true;
     neovim = true;
 
-    kde = true;
+    kde = true; #TODO: Remove me, i'm temporary.
   };
 
-  services.logind.extraConfig = ''
-    # don’t shutdown when power button is short-pressed
-    HandlePowerKey=ignore
-  '';
   home-manager.users.jsw.wayland.windowManager.hyprland.settings = {
     monitor = ["eDP-1,2880x1920@120,0x0,1.5,vrr,1"];
     bind = [
@@ -39,10 +35,14 @@ in {
   };
 
   services = {
-    fprintd.enable = true;
+    joycond.enable = true;
     udev.extraRules = ''
       # Ethernet expansion card support
       ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0bda", ATTR{idProduct}=="8156", ATTR{power/autosuspend}="20"
+    '';
+    logind.extraConfig = ''
+      # don’t shutdown when power button is short-pressed
+      HandlePowerKey=ignore
     '';
   };
   hardware.sensor.iio.enable = true; # brightness sensor

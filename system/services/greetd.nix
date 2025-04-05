@@ -13,7 +13,7 @@
     in {
       enable = true;
 
-      settings = lib.mkDefault {
+      settings = {
         terminal.vt = 1;
         default_session = session;
         initial_session = session;
