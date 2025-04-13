@@ -19,8 +19,6 @@ in {
     desktop = true;
     portable = true;
     neovim = true;
-
-    kde = true; #TODO: Remove me, i'm temporary.
   };
 
   home-manager.users.jsw.wayland.windowManager.hyprland.settings = {

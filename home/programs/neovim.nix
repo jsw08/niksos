@@ -53,7 +53,7 @@
         html.enable = true;
         markdown.enable = true;
         nix.enable = true;
-        svelte.enable = false;
+        svelte.enable = true;
         ts.enable = true;
         typst.enable = true;
         rust.enable = true;
