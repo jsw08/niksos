@@ -4,6 +4,7 @@
     ./shell
     ./style
     ./programs
+    ./services
   ];
 
   home = {
