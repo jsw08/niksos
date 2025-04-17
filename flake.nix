@@ -31,6 +31,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small"; # build error unrelated to config.
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11-small"; # build error unrelated to config.
     flake-parts.url = "github:hercules-ci/flake-parts";
+    nur-xddxdd = { # FIXME: Used by flaresolverr as the nixpkgs version is broken.
+      url = "github:xddxdd/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hm = {
       url = "github:nix-community/home-manager/master";
@@ -53,5 +57,6 @@
     };
 
     agenix.url = "github:ryantm/agenix";
+
   };
 }
