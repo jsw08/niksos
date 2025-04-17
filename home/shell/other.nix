@@ -9,6 +9,11 @@
     [
       pkgs.gh
       pkgs.ripgrep
+      pkgs.p7zip
+      pkgs.rsync
+      pkgs.usbutils
+      pkgs.pciutils
+      pkgs.inetutils
     ]
     ++ lib.optionals osConfig.niksos.desktop [
       inputs.somcli.defaultPackage.${pkgs.system}
