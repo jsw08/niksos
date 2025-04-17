@@ -1,4 +1,8 @@
-{config, lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.niksos.server;
 in {
   services.immich = {
@@ -47,7 +51,7 @@ in {
 
     accelerationDevices = lib.mkDefault null;
   };
-  users.users.immich.extraGroups = lib.mkIf cfg ["video" "render"];
+  users.users.immich = lib.mkIf cfg {extraGroups = ["video" "render"];}; #NOTE: was first groups = lib.mkIf.. but then users.immich gets set even when server is disabled.
 
   services.caddy.virtualHosts."photos.jsw.tf" = {
     extraConfig = ''
