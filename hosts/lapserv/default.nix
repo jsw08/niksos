@@ -3,7 +3,19 @@
     ./hardware-configuration.nix
   ];
 
-  niksos.server = true;
+  niksos = {
+    server = true;
+    graphics.nvidia = true;
+    graphics.intel = true;
+  };
+
+  services.immich = {
+    # settings.ffmepg.accel =  "nvenc";
+    settings.ffmpeg.preferredHwDevice = "/dev/dri/renderD128";
+    accelerationDevices = [
+      "/dev/dri/renderD128"	
+    ];
+  };
 
   systemd.sleep.extraConfig = ''
     AllowSuspend=no

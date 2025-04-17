@@ -3,7 +3,7 @@
 
   imports = [
     ./bluetooth.nix
-    ./commonGraphics.nix
+    ./graphics.nix
     ./fingerprint.nix
     ./fwupd.nix
   ];
