@@ -8,6 +8,7 @@
   home.packages = lib.mkIf osConfig.niksos.games [
     pkgs.dolphin-emu
     pkgs.suyu
+    pkgs.gale
 
     # (
     #   pkgs.appimageTools.wrapType1 rec {
