@@ -44,7 +44,6 @@
       };
       options.shiftwidth = 2;
       languages = {
-        enableLSP = true; # Thses options enable the things automatically for every language.
         enableFormat = true; #You can also manually overwrite each language.
         enableTreesitter = true;
 
@@ -60,6 +59,7 @@
         python.enable = true;
       };
       lsp = {
+        enable = true;
         formatOnSave = true;
         lspkind.enable = true; # Autocomplete icons
         lightbulb.enable = true; # Lightbulb icon when lsp is available

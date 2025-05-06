@@ -1,14 +1,9 @@
 {
   osConfig,
-  inputs,
   pkgs,
   lib,
   ...
 }: {
-  imports = [
-    inputs.stylix.homeManagerModules.stylix
-  ];
-
   stylix = {
     enable = osConfig.niksos.desktop;
     autoEnable = lib.mkDefault true;
@@ -32,11 +27,8 @@
       light = "Tela-dark";
     };
 
-    targets = {
-      gnome-text-editor.enable = false; # Creates an overlay in home-manager land which isn't allowed with globalPkgs.
-      nvf.enable = false; # I'd like to be able to read my code, thank you.
-    };
-
+    targets.nvf.enable = false; # I'd like to be able to read my code, thank you.
+    overlays.enable = false; # Should be set automatically but it isn't for some reason...
     #    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
   };
 }

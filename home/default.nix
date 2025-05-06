@@ -1,5 +1,12 @@
-{osConfig, ...}: {
+{
+  osConfig,
+  inputs,
+  ...
+}: {
   imports = [
+    inputs.stylix.homeManagerModules.stylix
+    inputs.nixcord.homeModules.nixcord
+
     ./wayland
     ./shell
     ./style

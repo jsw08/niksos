@@ -33,6 +33,7 @@ in {
   };
 
   services = {
+    usbmuxd.enable = true;
     joycond.enable = true;
     udev.extraRules = ''
       # Ethernet expansion card support
