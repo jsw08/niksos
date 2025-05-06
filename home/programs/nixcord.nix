@@ -1,10 +1,4 @@
-{
-  inputs,
-  osConfig,
-  ...
-}: {
-  imports = [inputs.nixcord.homeManagerModules.nixcord];
-
+{osConfig, ...}: {
   programs.nixcord = {
     enable = osConfig.niksos.neovim;
 

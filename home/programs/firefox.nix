@@ -3,7 +3,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  profileName = "jsw.nixos-default";
+in {
   programs.firefox = {
     enable = osConfig.niksos.desktop;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
@@ -59,18 +61,37 @@
       };
     };
 
-    profiles."jsw.nixos-default" = {
+    profiles.${profileName} = {
       id = 0;
       name = "nixos-default";
       isDefault = true;
 
       search = {
         force = true;
-        default = "DuckDuckGo";
+        default = "kagi";
         order = [
-          "DuckDuckGo"
-          "Google"
+          "kagi"
+          "ddg"
         ];
+
+        engines = {
+          "kagi" = {
+            icon = "https://kagi.com/favicon.ico";
+            updateInterval = 24 * 60 * 60 * 1000;
+            definedAliases = ["@k"];
+            urls = [
+              {
+                template = "https://kagi.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
+        };
       };
 
       settings = {
@@ -91,4 +112,6 @@
     type = "stdio";
     allowed_extensions = ["ff2mpv@yossarian.net"];
   };
+
+  stylix.targets.firefox.profileNames = [profileName];
 }
