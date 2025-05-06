@@ -48,7 +48,8 @@ in {
         StateDirectory = "dcbot";
         ExecStart = "${bash} -c 'cd ${dataDir} && deno run -A ${programDir}/src/main.ts'";
         User = "dcbot";
-        group = "dcbot";
+        Group = "dcbot";
+	Restart = "always";
       };
     };
 
