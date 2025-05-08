@@ -3,6 +3,7 @@
   imports = [
     ./avahi.nix
     ./tailscale.nix
+    ./wireguard.nix
   ];
 
   networking = {
