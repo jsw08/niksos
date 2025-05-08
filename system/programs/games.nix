@@ -61,7 +61,7 @@
       };
     };
     environment.variables = {
-      "STEAM_FORCE_DESKTOP_UI_SCALING" = "1.5";
+      "STEAM_FORCE_DESKTOP_UI_SCALING" = "1.5"; #FIXME:.
     };
   };
 }
