@@ -12,5 +12,8 @@
         else "root";
     };
     password.file = ./password.age;
+
+    wg-lapserv-private.file = ./wg-lapserv-private.age;
+    wg-laptop-private.file = ./wg-laptop-private.age;
   };
 }
