@@ -9,6 +9,7 @@
     pkgs.dolphin-emu
     pkgs.suyu
     pkgs.gale
+    pkgs.adwsteamgtk
 
     # (
     #   pkgs.appimageTools.wrapType1 rec {

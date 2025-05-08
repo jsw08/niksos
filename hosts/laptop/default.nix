@@ -20,17 +20,7 @@ in {
     portable = true;
     neovim = true;
   };
-
-  home-manager.users.jsw.wayland.windowManager.hyprland.settings = {
-    monitor = ["eDP-1,2880x1920@120,0x0,1.5,vrr,1"];
-    bind = [
-      ", XF86PowerOff, exec, ${uwsm} app -- pgrep fprintd-verify && exit 0 || ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'"
-    ];
-    windowrulev2 = [
-      # FIXME: change to `windowrule` after hyprland update.
-      "float, class:foot-fprintd"
-    ];
-  };
+  home-manager.users.jsw.wayland.windowManager.hyprland.settings.monitor = ["eDP-1,2880x1920@120,0x0,1.5,vrr,1"];
 
   services = {
     usbmuxd.enable = true;

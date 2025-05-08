@@ -1,8 +1,26 @@
 {
   config,
   lib,
+  pkgs,
   ...
-}: {
-  options.niksos.fingerprint = lib.mkEnableOption "fingerprint support.";
-  config.services.fprintd.enable = config.niksos.fingerprint;
+}: let
+  inherit (config.niksos) fingerprint desktop;
+  inherit (lib) mkIf mkEnableOption;
+  uwsm = lib.getExe pkgs.uwsm;
+  foot = lib.getExe pkgs.foot;
+in {
+  options.niksos.fingerprint = mkEnableOption "fingerprint support.";
+
+  config = mkIf fingerprint {
+    services.fprintd.enable = true;
+
+    home-manager.users.jsw.wayland.windowManager.hyprland.settings = mkIf desktop {
+      bind = [
+        ", XF86PowerOff, exec, ${uwsm} app -- pgrep fprintd-verify && exit 0 || ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'"
+      ];
+      windowrule = [
+        "float, class:foot-fprintd"
+      ];
+    };
+  };
 }
