@@ -1,61 +1,30 @@
 {
-  description = "Nix is here, nix is everywhere, nix is everything.";
-
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux"];
-      imports = [
-        ./hosts
-      ];
-
-      perSystem = {
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells.default = pkgs.mkShell {
-          packages = [
-            pkgs.alejandra
-            pkgs.git
-          ];
-          name = "dots";
-          DIRENV_LOG_FORMAT = "";
-        };
-
-        formatter = pkgs.alejandra;
-      };
-    };
-
   inputs = {
-    # Nixpkgs and other core shit
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # build error unrelated to config.
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11-small"; # build error unrelated to config.
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    garnix-lib.url = "github:garnix-io/garnix-lib";
+    User.url = "github:garnix-io/user-module";
+  };
 
-    hm = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  nixConfig = {
+    extra-substituters = [ "https://cache.garnix.io" ];
+    extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  };
 
-    # Ricing
-    stylix.url = "github:danth/stylix";
+  outputs = inputs: inputs.garnix-lib.lib.mkModules {
+    modules = [
+      inputs.User.garnixModules.default
+    ];
 
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    config = { pkgs, ... }: {
+      user = {
+        user-project = {
+          authorizedSshKeys = [  ];
+          groups = [  ];
+          shell = "fish";
+          user = "jsw";
+        };
+      };
 
-    nixcord.url = "github:kaylorben/nixcord";
-    somcli.url = "github:jsw08/somcli";
-
-    # Non-flake
-    dcbot = {
-      url = "github:jsw08/dcbot";
-      flake = false;
+      garnix.deployBranch = "master";
     };
   };
 }
