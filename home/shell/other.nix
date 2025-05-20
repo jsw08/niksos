@@ -22,6 +22,7 @@
       inputs.somcli.defaultPackage.${pkgs.system}
       pkgs.ffmpeg
       pkgs.gurk-rs
+      pkgs.playerctl
     ]
     ++ lib.optionals osConfig.niksos.bluetooth [
       pkgs.ear2ctl

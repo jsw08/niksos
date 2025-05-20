@@ -5,6 +5,7 @@
 }: {
   imports = [inputs.nvf.homeManagerModules.default];
 
+  home.sessionVariables = {EDITOR = "nvim";};
   programs.nvf = {
     enable = osConfig.niksos.neovim;
     settings.vim = {
