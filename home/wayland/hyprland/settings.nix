@@ -89,8 +89,7 @@
       vrr = 1;
     };
 
-    windowrulev2 = [
-      # FIXME: change to `windowrule` after hyprland update.
+    windowrule = [
       "float, class:com.github.phase1geo.annotator"
       "float, class:foot-somcli"
       "size >30% >30%, class:foot-somcli"
