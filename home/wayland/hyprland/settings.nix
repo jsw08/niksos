@@ -1,8 +1,4 @@
 {
-  lib,
-  osConfig,
-  ...
-}: {
   wayland.windowManager.hyprland.settings = {
     xwayland = {
       force_zero_scaling = true;
@@ -93,15 +89,11 @@
       vrr = 1;
     };
 
-    windowrule =
-      [
-        "float, class:com.github.phase1geo.annotator"
-        "float, class:foot-somcli"
-        "size >30% >30%, class:foot-somcli"
-      ]
-      ++ lib.optionals osConfig.niksos.fingerprint [
-        "float, class:foot-fprintd"
-      ];
+    windowrule = [
+      "float, class:com.github.phase1geo.annotator"
+      "float, class:foot-somcli"
+      "size >30% >30%, class:foot-somcli"
+    ];
     #NOTE: Also check home/wayland/hyprland/binds + system/hardware/fingerprint
   };
 }

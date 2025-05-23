@@ -9,8 +9,6 @@
   uwsm = lib.getExe pkgs.uwsm;
   foot = lib.getExe pkgs.foot;
 in {
-  #NOTE: Also check home/wayland/hyprland/settings + home/wayland/hyprland/binds
-
   options.niksos.fingerprint = mkEnableOption "fingerprint support.";
   config = mkIf fingerprint {
     services.fprintd.enable = true;

@@ -8,7 +8,7 @@
 }: let
   inherit (lib) getExe;
   inherit (config.lib.stylix.colors) base0D;
-  inherit (osConfig.niksos) desktop games portable fingerprint;
+  inherit (osConfig.niksos) games portable;
 
   runOnce = program: "pgrep ${program} || uwsm app -- ${program}";
   uwsm = getExe pkgs.uwsm;
@@ -115,9 +115,6 @@ in {
       ])
       ++ lib.optionals portable [
         "$m Shift, S, exec, ${somcli}"
-      ]
-      ++ lib.optionals fingerprint [
-        ", XF86PowerOff, exec, pgrep fprintd-verify || ${uwsm} app -- ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'" #NOTE: Also check home/wayland/hyprland/settings + system/hardware/fingerprint
       ];
 
     bindl = [
