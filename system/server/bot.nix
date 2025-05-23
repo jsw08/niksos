@@ -49,7 +49,7 @@ in {
         ExecStart = "${bash} -c 'cd ${dataDir} && deno run -A ${programDir}/src/main.ts'";
         User = "dcbot";
         Group = "dcbot";
-	Restart = "always";
+        Restart = "always";
       };
     };
 

@@ -3,8 +3,10 @@
   lib,
   pkgs,
   ...
-}: {
-  config = lib.mkIf config.niksos.desktop {
+}: let
+  cfg = config.niksos.desktop.enable;
+in {
+  config = lib.mkIf cfg {
     security.rtkit.enable = true;
 
     services.pipewire = {
