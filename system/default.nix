@@ -7,5 +7,6 @@
     ./programs
     ./server
     ./services
+    ./desktop
   ];
 }

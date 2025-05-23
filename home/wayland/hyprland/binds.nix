@@ -8,6 +8,7 @@
 }: let
   inherit (lib) getExe;
   inherit (config.lib.stylix.colors) base0D;
+  inherit (osConfig.niksos) desktop games portable fingerprint;
 
   runOnce = program: "pgrep ${program} || uwsm app -- ${program}";
   uwsm = getExe pkgs.uwsm;
@@ -35,11 +36,11 @@
   nmtui = termapp "${pkgs.networkmanager}/bin/nmtui";
 
   somcli = let
-    interactiveSom = pkgs.writeShellScriptBin "somcli" ''
+    somSleep = pkgs.writeShellScriptBin "somsleep" ''
       ${getExe inputs.somcli.defaultPackage.${pkgs.system}} && sleep 5
     '';
     termSom = pkgs.writeShellScriptBin "somfoot" ''
-      ${foot} -a "foot-somcli" ${getExe interactiveSom}
+      ${foot} -a "foot-somcli" ${getExe somSleep}
     '';
   in
     appE termSom;
@@ -61,7 +62,7 @@
     )
     10);
 in {
-  config = lib.mkIf osConfig.niksos.desktop {
+  config = lib.mkIf desktop {
     home.file.".XCompose".text = ''
       <Multi_key> <s> <h> <r> <u> <g> : "¯\\_(ツ)_/¯" # Shrug.
     '';
@@ -88,7 +89,6 @@ in {
           "$mod, Return, exec, ${foot}"
           "$mod Shift, Return, exec, ${firefox}"
           "$mod, Escape, exec, ${hyprlock}"
-          "$mod Shift, S, exec, ${somcli}"
 
           "$mod, A, exec, ${pulsemixer}"
           "$mod, B, exec, ${bluetui}"
@@ -111,13 +111,18 @@ in {
           "$mod SHIFT, j, movewindow, d"
         ]
         ++ workspaces
-        ++ lib.optionals osConfig.niksos.games (let
+        ++ lib.optionals games (let
           suyu = "${appE pkgs.suyu} -ql";
           dolphin = appE pkgs.dolphin-emu;
         in [
           "Super, s, exec, ${suyu}"
           "Super, d, exec, ${dolphin}"
-        ]);
+        ])
+	++ lib.optionals portable [
+          "$mod Shift, S, exec, ${somcli}"
+	] ++ lib.optionals fingerprint [
+	  ", XF86PowerOff, exec, ${uwsm} app -- pgrep fprintd-verify && exit 0 || ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'" #NOTE: Also check home/wayland/hyprland/settings + system/hardware/fingerprint
+	];
 
       bindl = [
         # media controls

@@ -54,7 +54,10 @@ in {
             networking.hostName = "vm";
 
             niksos = {
-              desktop = true;
+              desktop = {
+		  enable = true;
+		  hyprland = true;
+	      };
               neovim = true;
             };
 

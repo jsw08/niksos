@@ -9,8 +9,10 @@
     ./nh.nix
     ./nixpkgs.nix
     ./substituters.nix
-    ./nix-index.nix
   ];
+
+  # Really annoying message when command not found
+  programs.command-not-found.enable = false;
 
   # we need git for flakes
   environment.systemPackages = [pkgs.git];
