@@ -56,92 +56,87 @@
         in
           builtins.toString (x + 1 - (c * 10));
       in [
-        "$mod, ${ws}, workspace, ${toString (x + 1)}"
-        "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+        "$m, ${ws}, workspace, ${toString (x + 1)}"
+        "$m SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
       ]
     )
     10);
 in {
-  config = lib.mkIf desktop {
-    home.file.".XCompose".text = ''
-      <Multi_key> <s> <h> <r> <u> <g> : "¯\\_(ツ)_/¯" # Shrug.
-    '';
+  wayland.windowManager.hyprland.settings = {
+    "$m" = "ALT";
 
-    wayland.windowManager.hyprland.settings = {
-      "$mod" = "ALT";
+    bindm = [
+      "$m, mouse:272, movewindow"
+      "$m, mouse:273, resizewindow"
+      "$m ALT, mouse:272, resizewindow"
+    ];
 
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-        "$mod ALT, mouse:272, resizewindow"
+    bind =
+      [
+        "$m SHIFT, E, exec, uwsm stop"
+        "$m, Q, killactive,"
+        "$m, F, fullscreen,"
+        "$m, SPACE, togglefloating,"
+        "$m, O, pseudo,"
+        "$m ALT, ,resizeactive,"
+
+        "$m, D, exec, ${fuzzel}"
+        "$m, Return, exec, ${foot}"
+        "$m Shift, Return, exec, ${firefox}"
+        "$m, Escape, exec, ${hyprlock}"
+
+        "$m, A, exec, ${pulsemixer}"
+        "$m, B, exec, ${bluetui}"
+        "$m, N, exec, ${nmtui}"
+        ''
+          $m, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./scripts.nix {inherit pkgs;}).statusnotify})"'
+        ''
+
+        "$m, Print, exec, ${grimblast} copy area"
+        ", Print, exec, ${grimblast} save area - | ${swappy} -f -"
+
+        "$m, h, movefocus, l"
+        "$m, l, movefocus, r"
+        "$m, k, movefocus, u"
+        "$m, j, movefocus, d"
+
+        "$m SHIFT, h, movewindow, l"
+        "$m SHIFT, l, movewindow, r"
+        "$m SHIFT, k, movewindow, u"
+        "$m SHIFT, j, movewindow, d"
+      ]
+      ++ workspaces
+      ++ lib.optionals games (let
+        suyu = "${appE pkgs.suyu} -ql";
+        dolphin = appE pkgs.dolphin-emu;
+      in [
+        "Super, s, exec, ${suyu}"
+        "Super, d, exec, ${dolphin}"
+      ])
+      ++ lib.optionals portable [
+        "$m Shift, S, exec, ${somcli}"
+      ]
+      ++ lib.optionals fingerprint [
+        ", XF86PowerOff, exec, pgrep fprintd-verify || ${uwsm} app -- ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'" #NOTE: Also check home/wayland/hyprland/settings + system/hardware/fingerprint
       ];
 
-      bind =
-        [
-          "$mod SHIFT, E, exec, uwsm stop"
-          "$mod, Q, killactive,"
-          "$mod, F, fullscreen,"
-          "$mod, SPACE, togglefloating,"
-          "$mod, O, pseudo,"
-          "$mod ALT, ,resizeactive,"
+    bindl = [
+      # media controls
+      ", XF86AudioPlay, exec, ${playerctl} play-pause"
+      ", XF86AudioPrev, exec, ${playerctl} previous"
+      ", XF86AudioNext, exec, ${playerctl} next"
 
-          "$mod, D, exec, ${fuzzel}"
-          "$mod, Return, exec, ${foot}"
-          "$mod Shift, Return, exec, ${firefox}"
-          "$mod, Escape, exec, ${hyprlock}"
+      # volume
+      ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    ];
 
-          "$mod, A, exec, ${pulsemixer}"
-          "$mod, B, exec, ${bluetui}"
-          "$mod, N, exec, ${nmtui}"
-          ''
-            $mod, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./scripts.nix {inherit pkgs;}).statusnotify})"'
-          ''
-
-          "$mod, Print, exec, ${grimblast} copy area"
-          ", Print, exec, ${grimblast} save area - | ${swappy} -f -"
-
-          "$mod, h, movefocus, l"
-          "$mod, l, movefocus, r"
-          "$mod, k, movefocus, u"
-          "$mod, j, movefocus, d"
-
-          "$mod SHIFT, h, movewindow, l"
-          "$mod SHIFT, l, movewindow, r"
-          "$mod SHIFT, k, movewindow, u"
-          "$mod SHIFT, j, movewindow, d"
-        ]
-        ++ workspaces
-        ++ lib.optionals games (let
-          suyu = "${appE pkgs.suyu} -ql";
-          dolphin = appE pkgs.dolphin-emu;
-        in [
-          "Super, s, exec, ${suyu}"
-          "Super, d, exec, ${dolphin}"
-        ])
-	++ lib.optionals portable [
-          "$mod Shift, S, exec, ${somcli}"
-	] ++ lib.optionals fingerprint [
-	  ", XF86PowerOff, exec, ${uwsm} app -- pgrep fprintd-verify && exit 0 || ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'" #NOTE: Also check home/wayland/hyprland/settings + system/hardware/fingerprint
-	];
-
-      bindl = [
-        # media controls
-        ", XF86AudioPlay, exec, ${playerctl} play-pause"
-        ", XF86AudioPrev, exec, ${playerctl} previous"
-        ", XF86AudioNext, exec, ${playerctl} next"
-
-        # volume
-        ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ];
-
-      bindle = [
-        # volume
-        ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
-        ", XF86AudioLowerVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
-        ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
-        ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
-      ];
-    };
+    bindle = [
+      # volume
+      ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
+      ", XF86AudioLowerVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
+      ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
+      ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
+    ];
   };
 }

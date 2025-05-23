@@ -26,5 +26,4 @@
     ++ lib.optionals osConfig.niksos.portable [
       inputs.somcli.defaultPackage.${pkgs.system}
     ];
-    ;
 }
