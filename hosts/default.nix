@@ -55,9 +55,9 @@ in {
 
             niksos = {
               desktop = {
-		  enable = true;
-		  hyprland = true;
-	      };
+                enable = true;
+                hyprland = true;
+              };
               neovim = true;
             };
 

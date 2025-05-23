@@ -18,7 +18,8 @@ in {
     pkgs.wl-clipboard
   ];
 
-  home.sessionVariables = mkIf cfg { #FIXME: migrate to hyprconf
+  home.sessionVariables = mkIf cfg {
+    #FIXME: migrate to hyprconf
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";
