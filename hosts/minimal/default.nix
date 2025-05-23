@@ -10,10 +10,18 @@
 
   niksos = {
     bluetooth = false;
-    desktop = { enable = false; hyprland = false; kde = false; };
+    desktop = {
+      enable = false;
+      hyprland = false;
+      kde = false;
+    };
     fingerprint = false;
     games = false;
-    graphics = { enable = false; intel = false; nvidia = false; };
+    graphics = {
+      enable = false;
+      intel = false;
+      nvidia = false;
+    };
     neovim = false;
     portable = false;
     server = false;
