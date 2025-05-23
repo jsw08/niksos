@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.niksos.desktop.enable && config.niksos.desktop.hyprland.enable;
+  cfg = config.niksos.desktop.enable && config.niksos.desktop.hyprland;
 in {
   systemd.user.services.polkit-gnome-authentication-agent-1 = lib.mkIf cfg {
     description = "polkit-gnome-authentication-agent-1";

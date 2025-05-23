@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  cfg = config.niksos.desktop.enable && config.niksos.desktop.hyprland.enable;
+  cfg = config.niksos.desktop.enable && config.niksos.desktop.hyprland;
 in {
   config = lib.mkIf cfg {
     # greetd display manager
