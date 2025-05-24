@@ -5,7 +5,7 @@
 }: let
   profileName = "jsw.nixos-default";
 in {
-  programs.irefox = {
+  programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       extraPolicies = {

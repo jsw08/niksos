@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (lib) optionals mkEnableOption mkDefault;
+  inherit (config.niksos) graphics;
+  inherit (graphics) enable;
 
-  graphics = config.niksos.graphics;
-  enable = graphics.enable;
   nvidia = graphics.enable && graphics.nvidia;
   intel = graphics.enable && graphics.intel;
 in {

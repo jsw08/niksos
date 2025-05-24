@@ -17,7 +17,7 @@
         pre-commit.settings.hooks = {
           alejandra.enable = true;
           flake-checker.enable = true;
-          nil.enable = true;
+          statix.enable = true;
         };
 
         formatter = pkgs.alejandra;
@@ -25,6 +25,7 @@
           packages = [
             pkgs.alejandra
             pkgs.git
+            pkgs.statix
           ];
           name = "dots";
           DIRENV_LOG_FORMAT = "";
