@@ -13,7 +13,7 @@
     # settings.ffmepg.accel =  "nvenc";
     settings.ffmpeg.preferredHwDevice = "/dev/dri/renderD128";
     accelerationDevices = [
-      "/dev/dri/renderD128"	
+      "/dev/dri/renderD128"
     ];
   };
 

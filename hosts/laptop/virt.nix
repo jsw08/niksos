@@ -1,8 +1,10 @@
 {
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = ["jsw"];
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
 
-  virtualisation.podman.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+    podman.enable = true;
+  };
 }

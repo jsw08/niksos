@@ -94,5 +94,6 @@
       "float, class:foot-somcli"
       "size >30% >30%, class:foot-somcli"
     ];
+    #NOTE: Also check home/wayland/hyprland/binds + system/hardware/fingerprint
   };
 }

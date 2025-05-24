@@ -1,8 +1,8 @@
 {
   imports = [
-    ./greetd.nix
+    ./tailscale.nix
+    ./avahi.nix
     ./kanata.nix
-    ./pipewire.nix
     ./power.nix
     ./ssh.nix
   ];

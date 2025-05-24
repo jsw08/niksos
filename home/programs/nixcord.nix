@@ -1,7 +1,6 @@
 {osConfig, ...}: {
   programs.nixcord = {
-    enable = osConfig.niksos.neovim;
-
+    enable = true;
     discord.enable = false;
     vesktop.enable = true;
     vesktopConfig = {

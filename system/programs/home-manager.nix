@@ -1,13 +1,13 @@
 {
   inputs,
   specialArgs,
+  lib,
+  config,
   ...
-}: {
-  imports = [
-    inputs.hm.nixosModules.default
-  ];
-
-  home-manager = {
+}: let
+  cfg = config.niksos.desktop.enable;
+in {
+  home-manager = lib.mkIf cfg {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = specialArgs;
@@ -16,5 +16,5 @@
     users.jsw = import ../../home;
   };
 
-  programs.dconf.enable = true; # else gtk-managed stuff won't work
+  programs.dconf.enable = cfg; # else gtk-managed stuff won't work
 }

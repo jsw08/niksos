@@ -10,12 +10,11 @@
   foot = lib.getExe pkgs.foot;
 in {
   options.niksos.fingerprint = mkEnableOption "fingerprint support.";
-
   config = mkIf fingerprint {
     services.fprintd.enable = true;
 
-    home-manager.users.jsw.wayland.windowManager.hyprland.settings = mkIf desktop {
-      bind = [
+    home-manager.users.jsw.wayland.windowManager.hyprland.settings = mkIf desktop.hyprland {
+      bind = mkIf fingerprint [
         ", XF86PowerOff, exec, ${uwsm} app -- pgrep fprintd-verify && exit 0 || ${foot} -a 'foot-fprintd' sh -c 'fprintd-verify && systemctl sleep'"
       ];
       windowrule = [
