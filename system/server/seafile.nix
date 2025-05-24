@@ -30,6 +30,7 @@
       fileserver = {
         host = "unix:/run/seafile/server.sock";
         web_token_expire_time = 14400; # 4 hours
+        max_download_dir_size = 100000; # 100gb max download size.
       };
     };
   };
