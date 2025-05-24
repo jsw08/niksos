@@ -1,10 +1,5 @@
 # networking configuration
 {pkgs, ...}: {
-  imports = [
-    ./avahi.nix
-    ./tailscale.nix
-  ];
-
   #FIXME:
   networking = {
     # use quad9 with DNS over TLS
