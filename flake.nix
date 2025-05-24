@@ -26,6 +26,7 @@
             pkgs.alejandra
             pkgs.git
             pkgs.statix
+            pkgs.nixos-rebuild
           ];
           name = "dots";
           DIRENV_LOG_FORMAT = "";
