@@ -3,9 +3,17 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  cfg = config.niksos.games;
+in {
   options.niksos.games = lib.mkEnableOption "gaming related stuff.";
-  config = lib.mkIf config.niksos.games {
+  config = lib.mkIf cfg {
+    assertions = [
+      {
+        assertion = config.niksos.desktop.enable;
+        message = "The games option needs desktop to be enabled for it to work properly (it enables home-manager).";
+      }
+    ];
     # nixpkgs.overlays = [
     #   (final: prev: let
     #     version = "1.4.2";
@@ -38,7 +46,6 @@
     #     });
     #   })
     # ];
-    users.users.jsw.packages = [pkgs.gale];
 
     programs = {
       gamescope = {

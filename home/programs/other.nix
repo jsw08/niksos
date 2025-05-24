@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: {
-  home.packages = lib.mkIf osConfig.niksos.desktop [
+  home.packages = [
     pkgs.spotify
     pkgs.signal-desktop
   ];

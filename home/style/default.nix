@@ -5,7 +5,7 @@
   ...
 }: {
   stylix = {
-    enable = osConfig.niksos.desktop;
+    enable = true;
     autoEnable = lib.mkDefault true;
 
     image = ./background.png;

@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (osConfig.niksos) desktop;
+  cfg = osConfig.niksos.desktop.hyprland;
 in {
   imports = [
     ./fuzzel.nix
@@ -14,11 +14,12 @@ in {
     ./mako.nix
   ];
 
-  home.packages = mkIf desktop [
+  home.packages = mkIf cfg [
     pkgs.wl-clipboard
   ];
 
-  home.sessionVariables = mkIf desktop {
+  home.sessionVariables = mkIf cfg {
+    #FIXME: migrate to hyprconf
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";

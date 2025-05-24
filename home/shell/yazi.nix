@@ -11,7 +11,7 @@ in {
   programs.yazi = {
     enable = true;
     plugins = {
-      full-border = yPlugins.full-border;
+      inherit (yPlugins) full-border;
       mount = mkIf udisks2 yPlugins.mount;
     };
     keymap.manager.prepend_keymap =

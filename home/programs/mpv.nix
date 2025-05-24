@@ -4,7 +4,7 @@
   ...
 }: {
   programs.mpv = {
-    enable = osConfig.niksos.desktop;
+    enable = true;
     config = {
       vo = "gpu";
       profile = "gpu-hq";

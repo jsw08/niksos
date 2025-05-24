@@ -1,5 +1,4 @@
 {
-  osConfig,
   pkgs,
   lib,
   ...
@@ -7,7 +6,7 @@
   profileName = "jsw.nixos-default";
 in {
   programs.firefox = {
-    enable = osConfig.niksos.desktop;
+    enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       extraPolicies = {
         DisableFirefoxStudies = true;
