@@ -9,6 +9,8 @@
     max_idle_conns = 5;
     conn_max_lifetime = -1;
   };
+  port = 9003;
+  host = "matrix.jsw.tf";
 in {
   config = lib.mkIf config.niksos.server {
     services = {
@@ -21,10 +23,11 @@ in {
         environmentFile = config.age.secrets.matrix-registration.path; # Contains: `REGISTRATION_SHARED_SECRET=verysecretpassword`
         # openRegistration = true;
 
+        httpPort = port;
         settings = {
           global = {
             inherit database;
-            server_name = "matrix.jsw.tf";
+            server_name = host;
             private_key = "/$CREDENTIALS_DIRECTORY/matrix-server-key"; #nix shell nixpkgs#dendrite; generate-keys --private-key matrix_key.pem
           };
           app_service_api.database = database;
@@ -54,12 +57,12 @@ in {
       };
 
       caddy.virtualHosts = {
-        "matrix.jsw.tf".extraConfig = ''
+        ${host}.extraConfig = ''
           header /.well-known/matrix/* Content-Type application/json
           header /.well-known/matrix/* Access-Control-Allow-Origin *
-          respond /.well-known/matrix/server `{"m.server": "matrix.jsw.tf:443"}`
-          respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.jsw.tf"}}`
-          reverse_proxy /_matrix/* localhost:8008
+          respond /.well-known/matrix/server `{"m.server": "${host}:443"}`
+          respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://${host}"}}`
+          reverse_proxy /_matrix/* localhost:${builtins.toString port}
         '';
       };
     };
