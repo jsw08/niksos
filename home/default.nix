@@ -4,8 +4,9 @@
   ...
 }: {
   imports = [
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
     inputs.nixcord.homeModules.nixcord
+    inputs.nvf.homeManagerModules.default
 
     ./wayland
     ./shell

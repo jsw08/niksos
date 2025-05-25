@@ -3,8 +3,6 @@
   osConfig,
   ...
 }: {
-  imports = [inputs.nvf.homeManagerModules.default];
-
   home.sessionVariables = {EDITOR = "nvim";};
   programs.nvf = {
     enable = osConfig.niksos.neovim;
@@ -38,7 +36,10 @@
           action = "<C-w><C-${x}>";
           mode = "n";
         }) ["h" "j" "k" "l"];
-      useSystemClipboard = true;
+      clipboard = {
+        enable = true;
+        providers.wl-copy.enable = true;
+      };
       binds = {
         whichKey.enable = true;
         cheatsheet.enable = true;
