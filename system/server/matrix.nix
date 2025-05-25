@@ -14,7 +14,7 @@ in {
     services = {
       dendrite = {
         enable = true;
-        httpPort = 9003;
+        httpPort = 8448;
         loadCredential = [
           # $ nix-shell -p dendrite --run 'generate-keys --private-key /tmp/key'
           "matrix-server-key:${config.age.secrets.matrix-priv.path}"
@@ -28,7 +28,6 @@ in {
             server_name = "matrix.jsw.tf";
             private_key = "/$CREDENTIALS_DIRECTORY/matrix-server-key"; #nix shell nixpkgs#dendrite; generate-keys --private-key matrix_key.pem
           };
-          client_api.registration_shared_secret = "$REGISTRATION_SHARED_SECRET";
           app_service_api.database = database;
           federation_api.database = database;
           key_server.database = database;
@@ -56,9 +55,11 @@ in {
       };
 
       caddy.virtualHosts."matrix.jsw.tf".extraConfig = ''
-        reverse_proxy /_matrix/* localhost:9003
+        reverse_proxy /_matrix/* localhost:8448
       '';
     };
+
     systemd.services.dendrite.after = ["postgresql.service"];
+    networking.firewall.allowedTCPPorts = [8448];
   };
 }
