@@ -107,10 +107,10 @@ in {
       ]
       ++ workspaces
       ++ lib.optionals games (let
-        suyu = "${appE pkgs.suyu} -ql";
+        ryubing = "${appE pkgs.ryubing} -ql";
         dolphin = appE pkgs.dolphin-emu;
       in [
-        "Super, s, exec, ${suyu}"
+        "Super, s, exec, ${ryubing}"
         "Super, d, exec, ${dolphin}"
       ])
       ++ lib.optionals portable [
