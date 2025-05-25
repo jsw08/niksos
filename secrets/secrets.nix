@@ -10,7 +10,5 @@ in {
   "transfer-sh.age".publicKeys = systems;
   "password.age".publicKeys = systems;
   "dcbot.age".publicKeys = systems;
-
-  "wg-lapserv-private.age".publicKeys = systems;
-  "wg-laptop-private.age".publicKeys = systems;
+  "matrix-priv.age".publicKeys = systems;
 }
