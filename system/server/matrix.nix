@@ -9,51 +9,18 @@
     max_idle_conns = 5;
     conn_max_lifetime = -1;
   };
-  port = 9003;
   host = "matrix.jsw.tf";
 in {
   config = lib.mkIf config.niksos.server {
     services = {
-      dendrite = {
+      matrix-continuwuity = {
         enable = true;
-        loadCredential = [
-          # $ nix-shell -p dendrite --run 'generate-keys --private-key /tmp/key'
-          "matrix-server-key:${config.age.secrets.matrix-priv.path}"
-        ];
-        environmentFile = config.age.secrets.matrix-registration.path; # Contains: `REGISTRATION_SHARED_SECRET=verysecretpassword`
-        # openRegistration = true;
-
-        httpPort = port;
-        settings = {
-          global = {
-            inherit database;
-            server_name = host;
-            private_key = "/$CREDENTIALS_DIRECTORY/matrix-server-key"; #nix shell nixpkgs#dendrite; generate-keys --private-key matrix_key.pem
-          };
-          app_service_api.database = database;
-          federation_api.database = database;
-          key_server.database = database;
-          media_api.database = database;
-          mscs.database = database;
-          relay_api.database = database;
-          room_server.database = database;
-          sync_api.database = database;
-          user_api.account_database.database = database;
-          user_api.device_database.database = database;
-          sync_api.search.enabled = true;
+        global = {
+          unix_socket_path = /run/continuwuity/continuwuity.sock;
+          server_name = host;
+          allow_registration = true;
+          registration_token_file = config.age.secrets.matrix-registration.path;
         };
-      };
-
-      postgresql = {
-        enable = true;
-        enableTCPIP = false;
-        ensureDatabases = ["dendrite"];
-        ensureUsers = [
-          {
-            name = "dendrite";
-            ensureDBOwnership = true;
-          }
-        ];
       };
 
       caddy.virtualHosts = {
@@ -62,7 +29,7 @@ in {
           header /.well-known/matrix/* Access-Control-Allow-Origin *
           respond /.well-known/matrix/server `{"m.server": "${host}:443"}`
           respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://${host}"}}`
-          reverse_proxy /_matrix/* localhost:${builtins.toString port}
+          reverse_proxy /_matrix/* unix//run/continuwuity/continuwuity.sock
         '';
       };
     };
