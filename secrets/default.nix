@@ -12,7 +12,12 @@
         else "root";
     };
     password.file = ./password.age;
-    matrix-priv.file = ./matrix-priv.age;
-    matrix-registration.file = ./matrix-registration.age;
+    matrix-registration = {
+      file = ./matrix-registration.age;
+      owner =
+        if config.niksos.server
+        then config.services.matrix-continuwuity.user
+        else "root";
+    };
   };
 }
