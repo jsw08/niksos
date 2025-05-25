@@ -54,12 +54,6 @@ in {
       };
 
       caddy.virtualHosts = {
-        "jsw.tf".extraConfig = ''
-          header /.well-known/matrix/* Content-Type application/json
-          header /.well-known/matrix/* Access-Control-Allow-Origin *
-          respond /.well-known/matrix/server `{"m.server": "matrix.jsw.tf:443"}`
-          respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.jsw.tf"}}`
-        '';
         "matrix.jsw.tf".extraConfig = ''
           header /.well-known/matrix/* Content-Type application/json
           header /.well-known/matrix/* Access-Control-Allow-Origin *
