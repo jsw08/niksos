@@ -13,5 +13,6 @@
     };
     password.file = ./password.age;
     matrix-priv.file = ./matrix-priv.age;
+    matrix-registration.file = ./matrix-registration.age;
   };
 }

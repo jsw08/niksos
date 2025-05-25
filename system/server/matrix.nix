@@ -15,13 +15,20 @@ in {
       dendrite = {
         enable = true;
         httpPort = 9003;
+        loadCredential = [
+          # $ nix-shell -p dendrite --run 'generate-keys --private-key /tmp/key'
+          "matrix-server-key:${config.age.secrets.matrix-priv.path}"
+        ];
+        environmentFile = config.age.secrets.matrix-registration.path; # Contains: `REGISTRATION_SHARED_SECRET=verysecretpassword`
+        # openRegistration = true;
+
         settings = {
           global = {
+            inherit database;
             server_name = "matrix.jsw.tf";
             private_key = "/$CREDENTIALS_DIRECTORY/matrix-server-key"; #nix shell nixpkgs#dendrite; generate-keys --private-key matrix_key.pem
           };
-
-          global.database = database;
+          client_api.registration_shared_secret = "$REGISTRATION_SHARED_SECRET";
           app_service_api.database = database;
           federation_api.database = database;
           key_server.database = database;
@@ -52,13 +59,6 @@ in {
         reverse_proxy /_matrix/* localhost:9003
       '';
     };
-
-    systemd.services.dendrite = {
-      serviceConfig.LoadCredential = [
-        # $ nix-shell -p dendrite --run 'generate-keys --private-key /tmp/key'
-        "matrix-server-key:${config.age.secrets.matrix-priv.path}"
-      ];
-      after = ["postgresql.service"];
-    };
+    systemd.services.dendrite.after = ["postgresql.service"];
   };
 }
