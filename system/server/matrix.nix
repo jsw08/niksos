@@ -15,6 +15,7 @@ in {
     services = {
       matrix-continuwuity = {
         enable = true;
+        group = "caddy"; # Permissions for socket
         settings.global = {
           unix_socket_path = "/run/continuwuity/continuwuity.sock";
           server_name = host;
@@ -33,7 +34,5 @@ in {
         '';
       };
     };
-
-    systemd.services.dendrite.after = ["postgresql.service"];
   };
 }
