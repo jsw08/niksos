@@ -14,7 +14,6 @@ in {
     services = {
       dendrite = {
         enable = true;
-        httpPort = 8448;
         loadCredential = [
           # $ nix-shell -p dendrite --run 'generate-keys --private-key /tmp/key'
           "matrix-server-key:${config.age.secrets.matrix-priv.path}"
@@ -54,12 +53,23 @@ in {
         ];
       };
 
-      caddy.virtualHosts."matrix.jsw.tf".extraConfig = ''
-        reverse_proxy /_matrix/* localhost:8448
-      '';
+      caddy.virtualHosts = {
+        "jsw.tf".extraConfig = ''
+          header /.well-known/matrix/* Content-Type application/json
+          header /.well-known/matrix/* Access-Control-Allow-Origin *
+          respond /.well-known/matrix/server `{"m.server": "matrix.jsw.tf:443"}`
+          respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.jsw.tf"}}`
+        '';
+        "matrix.jsw.tf".extraConfig = ''
+          header /.well-known/matrix/* Content-Type application/json
+          header /.well-known/matrix/* Access-Control-Allow-Origin *
+          respond /.well-known/matrix/server `{"m.server": "matrix.jsw.tf:443"}`
+          respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.jsw.tf"}}`
+          reverse_proxy /_matrix/* localhost:8008
+        '';
+      };
     };
 
     systemd.services.dendrite.after = ["postgresql.service"];
-    networking.firewall.allowedTCPPorts = [8448];
   };
 }
