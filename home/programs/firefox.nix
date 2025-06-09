@@ -57,6 +57,7 @@ in {
             "vimium-c@gdh1995.cn".install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi"; # Extension info here.
             "ff2mpv@yossarian.net".install_url = "https://addons.mozilla.org/firefox/downloads/latest/ff2mpv/latest.xpi";
             "newtaboverride@agenedia.com".install_url = "https://addons.mozilla.org/firefox/downloads/latest/new-tab-override/latest.xpi";
+            "{34daeb50-c2d2-4f14-886a-7160b24d66a4}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-shorts-block/latest.xpi";
           };
       };
     };

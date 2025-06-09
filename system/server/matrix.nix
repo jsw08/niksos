@@ -21,6 +21,7 @@ in {
           server_name = host;
           allow_registration = true;
           registration_token_file = config.age.secrets.matrix-registration.path;
+          new_user_displayname_suffix = "";
         };
       };
 

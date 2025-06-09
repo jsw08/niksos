@@ -107,10 +107,12 @@ in {
       ]
       ++ workspaces
       ++ lib.optionals games (let
-        ryubing = "${appE pkgs.ryubing} -ql";
+        torzu = "${
+          appE inputs.nixpkgs-torzu.legacyPackages.${pkgs.system}.torzu
+        } -ql";
         dolphin = appE pkgs.dolphin-emu;
       in [
-        "Super, s, exec, ${ryubing}"
+        "Super, s, exec, ${torzu}"
         "Super, d, exec, ${dolphin}"
       ])
       ++ lib.optionals portable [

@@ -28,7 +28,10 @@ in {
     loader = {
       # systemd-boot on UEFI
       efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        netbootxyz.enable = true;
+      };
 
       timeout = 0;
     };
