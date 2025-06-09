@@ -1,6 +1,6 @@
 {
-  inputs,
   osConfig,
+  pkgs,
   ...
 }: {
   home.sessionVariables = {EDITOR = "nvim";};
@@ -39,6 +39,7 @@
       clipboard = {
         enable = true;
         providers.wl-copy.enable = true;
+        registers = "unnamedplus";
       };
       binds = {
         whichKey.enable = true;
@@ -71,6 +72,15 @@
           hover = "gh";
           codeAction = "<leader>.";
         };
+
+        # Emmet LSP. No option for this yet. https://github.com/NotAShelf/nvf/pull/867
+        lspconfig.sources.emmet_language_server = ''
+          lspconfig.emmet_language_server.setup {
+            capabilities = capabilities,
+            on_attach = default_on_attach,
+            cmd = { "${pkgs.emmet-language-server}/bin/emmet-language-server", "--stdio" }
+          }
+        '';
       };
       autopairs.nvim-autopairs.enable = true;
       autocomplete.nvim-cmp.enable = true;

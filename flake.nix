@@ -41,7 +41,7 @@
   inputs = {
     # Nixpkgs and other core shit
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # build error unrelated to config.
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05-small"; # build error unrelated to config.
+    nixpkgs-torzu.url = "github:nixos/nixpkgs/d9afddcd04bc716d1fee5141f8696a131f76442c"; # Commit before packacge removed.
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
