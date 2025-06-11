@@ -12,4 +12,5 @@ in {
   "dcbot.age".publicKeys = systems;
   "matrix-registration.age".publicKeys = systems;
   "cloudflare-acme.age".publicKeys = systems;
+  "mail-admin.age".publicKeys = systems;
 }

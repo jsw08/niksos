@@ -20,5 +20,12 @@
         else "root";
     };
     cloudflare-acme.file = ./cloudflare-acme.age;
+    mail-admin = {
+      owner =
+        if config.niksos.server
+        then "stalwart-mail"
+        else "root";
+      file = ./mail-admin.age;
+    };
   };
 }
