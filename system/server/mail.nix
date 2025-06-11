@@ -1,57 +1,64 @@
 {config, ...}: {
   services.stalwart-mail = {
     enable = true;
-    openFirewall = true;
+    openFirewall = false; # Don't want to open port 8080, will leave that for caddy.
     settings = {
       server = {
-        hostname = "mx1.jsw.tf";
-        tls = {
+        tracer."log" = {
+          ansi = false;
           enable = true;
-          implicit = true;
+          level = "info";
+          path = "./stalwart/logs";
+          prefix = "stalwart.log";
+          rotate = "daily";
+          type = "log";
+        };
+        authentication = {
+          fallback-admin = {
+            secret = "%{file:${config.age.secrets.mail-admin.path}}%";
+            user = "admin";
+          };
         };
         listener = {
+          http = {
+            bind = "127.0.0.1:9003";
+            protocol = "http";
+          };
+          imaptls = {
+            bind = "[::]:993";
+            protocol = "imap";
+            tls.implicit = true;
+          };
           smtp = {
-            protocol = "smtp";
             bind = "[::]:25";
+            protocol = "smtp";
+          };
+          jmap = {
+            bind = "[::]:9003";
+            url = "https://mail.jsw.tf";
+            protocol = "jmap";
           };
           submissions = {
             bind = "[::]:465";
             protocol = "smtp";
-          };
-          imaps = {
-            bind = "[::]:993";
-            protocol = "imap";
-          };
-          jmap = {
-            bind = "[::]:8080";
-            url = "https://mail.jsw.tf";
-            protocol = "jmap";
-          };
-          management = {
-            bind = ["127.0.0.1:8080"];
-            protocol = "http";
+            tls.implicit = true;
           };
         };
       };
+
+      hostname = "mx1.jsw.tf";
       lookup.default = {
         hostname = "mx1.jsw.tf";
         domain = "jsw.tf";
       };
       acme."letsencrypt" = {
         directory = "https://acme-v02.api.letsencrypt.org/directory";
-        challenge = "dns-01";
-        contact = "jswmail@proton.me";
+        challenge = "tls-alpn-01";
+        contact = ["jurnwubben@gmail.com"];
         domains = ["jsw.tf" "mx1.jsw.tf"];
-        provider = "cloudflare";
-        secret = "%{file:${config.age.secrets.cloudflare-acme.path}}%";
+        cache = "%{BASE_PATH}%/etc/acme";
+        renew-before = "30d";
       };
-      session.auth = {
-        mechanisms = "[plain]";
-        directory = "'in-memory'";
-      };
-      storage.directory = "in-memory";
-      session.rcpt.directory = "'in-memory'";
-      queue.outbound.next-hop = "'local'";
       directory."imap".lookup.domains = ["jsw.tf"];
       # directory."in-memory" = {
       #   type = "memory";
@@ -64,23 +71,24 @@
       #     }
       #   ];
       # };
-      authentication.fallback-admin = {
-        user = "admin";
-        secret = "%{file:${config.age.secrets.password.path}}%";
-      };
     };
   };
+  networking.firewall.allowedTCPPorts = [
+    993
+    25
+    465
+  ];
 
   services.caddy.virtualHosts = {
     "webadmin.jsw.tf" = {
       extraConfig = ''
-        reverse_proxy http://127.0.0.1:8080
+        reverse_proxy http://127.0.0.1:9003
       '';
       serverAliases = [
-        "mta-sts.example.org"
-        "autoconfig.example.org"
-        "autodiscover.example.org"
-        "mail.example.org"
+        "mta-sts.jsw.tf"
+        "autoconfig.jsw.tf"
+        "autodiscover.jsw.tf"
+        "mail.jsw.tf"
       ];
     };
   };
