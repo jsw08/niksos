@@ -1,4 +1,25 @@
 {config, ...}: {
+  nixpkgs.overlays = [
+    (final: prev: let
+      version = "0.12.4";
+      hash = "sha256-MUbWGBbb8+b5cp+M5w27A/cHHkMcoEtkN13++FyBvbM=";
+      cargoHash = "sha256-G1c7hh0nScc4Cx7A1UUXv6slA6pP0fC6h00zR71BJIo=";
+    in {
+      stalwart-mail = prev.stalwart-mail.overrideAttrs (new: old: rec {
+        inherit cargoHash version;
+        src = prev.fetchFromGitHub {
+          inherit version hash;
+          inherit (old.src) owner repo;
+          tag = "v${version}";
+        };
+        cargoDeps = prev.rustPlatform.fetchCargoVendor {
+          inherit src;
+          hash = cargoHash;
+        };
+      });
+    })
+  ];
+
   services.stalwart-mail = {
     enable = true;
     openFirewall = false; # Don't want to open port 8080, will leave that for caddy.
