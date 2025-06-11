@@ -5,7 +5,7 @@
 
   niksos = {
     server = true;
-    graphics.nvidia = true;
+    graphics.nvidia = false; #FIXME: Compile error
     graphics.intel = true;
   };
 
