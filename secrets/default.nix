@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  serviceUser = x: config.systemd.services.${x}.serviceConfig.User;
+in {
   age.secrets = {
     transferSh = {
       file = ./transfer-sh.age;
@@ -8,7 +10,7 @@
       file = ./dcbot.age;
       owner =
         if config.niksos.server
-        then "dcbot" # "dcbot" doesn't exist on e.g laptop.
+        then serviceUser "dcbot" # "dcbot" doesn't exist on e.g laptop.
         else "root";
     };
     password.file = ./password.age;
@@ -23,7 +25,7 @@
     mail-admin = {
       owner =
         if config.niksos.server
-        then "stalwart-mail"
+        then serviceUser "stalwart-mail"
         else "root";
       file = ./mail-admin.age;
     };
