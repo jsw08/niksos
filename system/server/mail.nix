@@ -6,11 +6,9 @@
       user_admin_password = config.age.secrets.mail-admin.path;
     };
     settings = {
-      authentication = {
-        fallback-admin = {
-          secret = "%{file:/run/credentials/stalwart-mail.service/user_admin_password}%";
-          user = "admin";
-        };
+      authentication.fallback-admin = {
+        secret = "%{file:/run/credentials/stalwart-mail.service/user_admin_password}%";
+        user = "admin";
       };
       server = {
         tracer."log" = {
@@ -45,16 +43,12 @@
       };
 
       hostname = "mx1.jsw.tf";
-      lookup.default = {
-        hostname = "mx1.jsw.tf";
-        domain = "jsw.tf";
-      };
+      lookup.default.domain = "jsw.tf";
       acme."letsencrypt" = {
         directory = "https://acme-v02.api.letsencrypt.org/directory";
         challenge = "tls-alpn-01";
         contact = ["jurnwubben@gmail.com"];
         domains = ["jsw.tf" "mx1.jsw.tf"];
-        cache = "%{BASE_PATH}%/etc/acme";
         renew-before = "30d";
       };
       directory."imap".lookup.domains = ["jsw.tf"];
@@ -71,6 +65,17 @@
       # };
     };
   };
+
+  # virtualisation.oci-containers.containers.stalwart = {
+  #   image = "docker.io/stalwartlabs/mail-server:latest";
+  #   labels = {
+  #     "io.containers.autoupdate" = "registry";
+  #   };
+  #   ports = ["25:25" "465:465" "993:993" "9003:8080"];
+  #   volumes = [
+  #     "/home/jsw/stalwart:/opt/stalwart-mail"
+  #   ];
+  # };
   networking.firewall.allowedTCPPorts = [
     993
     25
