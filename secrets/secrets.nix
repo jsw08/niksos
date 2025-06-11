@@ -11,4 +11,5 @@ in {
   "password.age".publicKeys = systems;
   "dcbot.age".publicKeys = systems;
   "matrix-registration.age".publicKeys = systems;
+  "cloudflare-acme.age".publicKeys = systems;
 }

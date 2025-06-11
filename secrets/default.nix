@@ -19,5 +19,6 @@
         then config.services.matrix-continuwuity.user
         else "root";
     };
+    cloudflare-acme.file = ./cloudflare-acme.age;
   };
 }
