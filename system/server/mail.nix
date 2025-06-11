@@ -2,7 +2,16 @@
   services.stalwart-mail = {
     enable = true;
     openFirewall = false; # Don't want to open port 8080, will leave that for caddy.
+    credentials = {
+      user_admin_password = config.age.secrets.mail-admin.path;
+    };
     settings = {
+      authentication = {
+        fallback-admin = {
+          secret = "%{file:/run/credentials/stalwart-mail.service/user_admin_password}%";
+          user = "admin";
+        };
+      };
       server = {
         tracer."log" = {
           ansi = false;
@@ -12,12 +21,6 @@
           prefix = "stalwart.log";
           rotate = "daily";
           type = "log";
-        };
-        authentication = {
-          fallback-admin = {
-            secret = "%{file:${config.age.secrets.mail-admin.path}}%";
-            user = "admin";
-          };
         };
         listener = {
           http = {
@@ -32,11 +35,6 @@
           smtp = {
             bind = "[::]:25";
             protocol = "smtp";
-          };
-          jmap = {
-            bind = "[::]:9003";
-            url = "https://mail.jsw.tf";
-            protocol = "jmap";
           };
           submissions = {
             bind = "[::]:465";
