@@ -103,16 +103,15 @@
   ];
 
   services.caddy.virtualHosts = {
-    "webadmin.jsw.tf" = {
+    "mail.jsw.tf" = {
       extraConfig = ''
         reverse_proxy http://127.0.0.1:9003
       '';
-      serverAliases = [
-        # "mta-sts.jsw.tf"
-        # "autoconfig.jsw.tf"
-        # "autodiscover.jsw.tf"
-        "mail.jsw.tf"
-      ];
+      # serverAliases = [
+      # "mta-sts.jsw.tf"
+      # "autoconfig.jsw.tf"
+      # "autodiscover.jsw.tf"
+      # ];
     };
   };
 }
