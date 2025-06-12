@@ -23,10 +23,10 @@ in {
     };
     cloudflare-acme.file = ./cloudflare-acme.age;
     mail-admin = {
-      owner =
-        if config.niksos.server
-        then serviceUser "stalwart-mail"
-        else "root";
+      # owner = #FIXME: revert when stopped using docker for stalwart.
+      #   if config.niksos.server
+      #   then serviceUser "stalwart-mail"
+      #   else "root";
       file = ./mail-admin.age;
     };
   };
