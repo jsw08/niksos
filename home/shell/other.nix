@@ -23,7 +23,7 @@
     ++ lib.optionals osConfig.niksos.bluetooth [
       pkgs.ear2ctl
     ]
-    ++ lib.optionals osConfig.niksos.portable [
+    ++ lib.optionals osConfig.niksos.portable.enable [
       inputs.somcli.defaultPackage.${pkgs.system}
     ];
 }

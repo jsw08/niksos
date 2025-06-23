@@ -6,5 +6,6 @@
     ./graphics.nix
     ./fingerprint.nix
     ./fwupd.nix
+    ./power.nix
   ];
 }

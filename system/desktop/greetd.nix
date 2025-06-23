@@ -20,6 +20,6 @@
       };
     };
 
-    programs.uwsm.enable = lib.mkDefault true;
+    programs.uwsm.enable = config.niksos.desktop.hyprland;
   };
 }

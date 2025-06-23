@@ -115,8 +115,9 @@ in {
         "Super, s, exec, ${torzu}"
         "Super, d, exec, ${dolphin}"
       ])
-      ++ lib.optionals portable [
+      ++ lib.optionals portable.enable [
         "$m Shift, S, exec, ${somcli}"
+        ", XF86AudioMedia, exec, powermode toggle"
       ];
 
     bindl = [

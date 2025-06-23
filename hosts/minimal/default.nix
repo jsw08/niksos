@@ -23,7 +23,13 @@
       nvidia = false;
     };
     neovim = false;
-    portable = false;
+    portable = {
+      enable = false;
+      hyprland = {
+        powerSaver = "";
+        performance = "";
+      };
+    };
     server = false;
   };
 

@@ -22,7 +22,6 @@ in {
 
       desktopManager.plasma6.enable = true;
     };
-    programs.uwsm.enable = false;
 
     home-manager.users.jsw.stylix.autoEnable = false;
   };

@@ -24,7 +24,17 @@
   niksos = {
     fingerprint = true;
     bluetooth = true;
-    portable = true;
+    portable = {
+      enable = true;
+      hyprland = {
+        powerSaver = ''
+          hyprctl keyword monitor eDP-1,2880x1920@60,0x0,1.5,vrr,1
+        '';
+        performance = ''
+          hyprctl keyword monitor eDP-1,2880x1920@120,0x0,1.5,vrr,1
+        '';
+      };
+    };
 
     neovim = true;
     games = true;

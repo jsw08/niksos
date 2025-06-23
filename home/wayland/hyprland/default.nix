@@ -21,10 +21,12 @@ in {
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "NIXOS_OZONE_WL,1"
       ];
-      exec-once = [
-        "${uwsm} finalize"
-        "${hyprlock}" # Lock screen
-      ];
+      exec-once =
+        [
+          "${uwsm} finalize"
+          "${hyprlock}" # Lock screen
+        ]
+        ++ lib.optional osConfig.niksos.portable.enable "powermode sync";
     };
   };
 }

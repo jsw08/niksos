@@ -41,11 +41,12 @@
         providers.wl-copy.enable = true;
         registers = "unnamedplus";
       };
+
+      options.shiftwidth = 2;
       binds = {
         whichKey.enable = true;
         cheatsheet.enable = true;
       };
-      options.shiftwidth = 2;
       languages = {
         enableFormat = true; #You can also manually overwrite each language.
         enableTreesitter = true;
@@ -120,7 +121,16 @@
         colorizer.enable = true;
         smartcolumn. enable = true;
       };
-      utility.vim-wakatime.enable = true;
+      utility = {
+        vim-wakatime.enable = true;
+        motion.leap = {
+          enable = true;
+          mappings = {
+            leapForwardTo = "f";
+            leapBackwardTo = "F";
+          };
+        };
+      };
       visuals = {
         nvim-web-devicons.enable = true;
         nvim-cursorline.enable = true;
