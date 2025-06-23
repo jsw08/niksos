@@ -26,7 +26,7 @@ in {
             ROOT_URL = "https://${DOMAIN}/";
             HTTP_PORT = 9004;
           };
-          service.DISABLE_REGISTRATION = false;
+          service.DISABLE_REGISTRATION = true;
           actions = {
             ENABLED = true;
             DEFAULT_ACTIONS_URL = "github";
