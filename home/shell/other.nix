@@ -7,7 +7,6 @@
 }: {
   home.packages =
     [
-      pkgs.gh
       pkgs.ripgrep
       pkgs.p7zip
       pkgs.usbutils
