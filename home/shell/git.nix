@@ -6,6 +6,6 @@
       userName = "Jurn Wubben";
       extraConfig.push.autoSetupRemote = true;
     };
-    git-credential-oauth = true;
+    git-credential-oauth.enable = true;
   };
 }
