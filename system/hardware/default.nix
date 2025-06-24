@@ -3,9 +3,10 @@
 
   imports = [
     ./bluetooth.nix
-    ./graphics.nix
     ./fingerprint.nix
     ./fwupd.nix
+    ./graphics.nix
+    ./joycond.nix
     ./power.nix
   ];
 }
