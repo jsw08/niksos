@@ -6,7 +6,7 @@
 }: {
   services.seafile = {
     enable = config.niksos.server;
-    seahubPackage = inputs.nixpkgs.legacyPackages.${pkgs.system}.seahub;
+    seahubPackage = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.seahub;
 
     adminEmail = "jurnwubben@gmail.com";
     initialAdminPassword = "ChangeMeTheFuckNow!";
