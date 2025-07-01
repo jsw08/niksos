@@ -51,13 +51,18 @@
         enableFormat = true; #You can also manually overwrite each language.
         enableTreesitter = true;
 
+        ts = {
+          enable = true;
+          lsp.server = "denols";
+          extensions.ts-error-translator.enable = true;
+        };
+
         bash.enable = true;
         css.enable = true;
         html.enable = true;
         markdown.enable = true;
         nix.enable = true;
         svelte.enable = true;
-        ts.enable = true;
         typst.enable = true;
         rust.enable = true;
         python.enable = true;
