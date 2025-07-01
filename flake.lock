@@ -115,11 +115,11 @@
     "dcbot": {
       "flake": false,
       "locked": {
-        "lastModified": 1749149130,
-        "narHash": "sha256-n358UUxNnOgXWWVqfN4TZsDt7giMF5RrZhuASVeqEj8=",
+        "lastModified": 1751355189,
+        "narHash": "sha256-+fzrf+UHw6KLoM7R3TQk6pFRrTcZWhpP/7Ap1Zqsxm4=",
         "owner": "jsw08",
         "repo": "dcbot",
-        "rev": "07f5e9ad96c94faadf4376bb62c5361127aaa8e3",
+        "rev": "88f315a28a1ff46642f0d32436d505084d30001f",
         "type": "github"
       },
       "original": {
