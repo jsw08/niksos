@@ -1,7 +1,7 @@
 {config, ...}: {
   services.openssh = {
     enable = true;
-    openFirewall = !config.niksos.portable.enable;
+    openFirewall = !config.niksos.hardware.portable.enable;
     settings.UseDns = true;
   };
 }

@@ -23,18 +23,21 @@
 
   # programs.evolution.enable = true; # FIXME: move to appropiate place.
   niksos = {
-    joycond = false; #NOTE: enable when game night lol
-    fingerprint = true;
-    bluetooth = true;
-    portable = {
-      enable = true;
-      hyprland = {
-        powerSaver = ''
-          hyprctl keyword monitor eDP-1,2880x1920@60,0x0,1.5,vrr,1
-        '';
-        performance = ''
-          hyprctl keyword monitor eDP-1,2880x1920@120,0x0,1.5,vrr,1
-        '';
+    hardware = {
+      joycond = false; #NOTE: enable when game night lol
+      fingerprint = true;
+      bluetooth = true;
+
+      portable = {
+        enable = true;
+        hyprland = {
+          powerSaver = ''
+            hyprctl keyword monitor eDP-1,2880x1920@60,0x0,1.5,vrr,1
+          '';
+          performance = ''
+            hyprctl keyword monitor eDP-1,2880x1920@120,0x0,1.5,vrr,1
+          '';
+        };
       };
     };
 

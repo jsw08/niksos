@@ -4,13 +4,12 @@
   pkgs,
   ...
 }: let
-  inherit (config.niksos) fingerprint desktop;
+  inherit (config.niksos) hardware desktop;
   inherit (lib) mkIf mkEnableOption;
   uwsm = lib.getExe pkgs.uwsm;
   foot = lib.getExe pkgs.foot;
 in {
-  options.niksos.fingerprint = mkEnableOption "fingerprint support.";
-  config = mkIf fingerprint {
+  config = mkIf hardware.fingerprint {
     services = {
       fprintd.enable = true;
       logind.extraConfig = mkIf desktop.hyprland ''

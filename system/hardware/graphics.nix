@@ -5,20 +5,14 @@
   ...
 }: let
   inherit (lib) optionals mkEnableOption mkDefault;
-  inherit (config.niksos) graphics;
-  inherit (graphics) enable;
+  inherit (config.niksos.hardware) graphics;
+  inherit (graphics) enable nvidia intel;
 
-  nvidia = graphics.enable && graphics.nvidia;
-  intel = graphics.enable && graphics.intel;
+  Nvidia = enable && nvidia;
+  Intel = enable && intel;
 in {
-  options.niksos.graphics = {
-    enable = mkEnableOption "core graphics";
-    intel = mkEnableOption "additional intel drivers";
-    nvidia = mkEnableOption "additoinal nvidia drivers";
-  };
-
   config = {
-    niksos.graphics.enable = mkDefault true;
+    niksos.hardware.graphics.enable = mkDefault true;
 
     hardware.graphics = {
       inherit enable;
@@ -29,10 +23,10 @@ in {
           vaapiVdpau
           libvdpau-va-gl
         ]
-        ++ optionals intel [
+        ++ optionals Intel [
           pkgs.intel-media-driver
         ]
-        ++ optionals nvidia [
+        ++ optionals Nvidia [
           nvidia-vaapi-driver
         ];
       extraPackages32 = with pkgs.pkgsi686Linux;
@@ -41,18 +35,18 @@ in {
           vaapiVdpau
           libvdpau-va-gl
         ]
-        ++ optionals intel [
+        ++ optionals Intel [
           pkgs.pkgsi686Linux.intel-media-driver
         ]
-        ++ optionals nvidia [
+        ++ optionals Nvidia [
           pkgs.pkgsi686Linux.nvidia-vaapi-driver
         ];
     };
 
     hardware.nvidia = {
-      modesetting.enable = nvidia;
+      modesetting.enable = Nvidia;
       open = false;
     };
-    services.xserver.videoDrivers = optionals nvidia ["nvidia"];
+    services.xserver.videoDrivers = optionals Nvidia ["nvidia"];
   };
 }

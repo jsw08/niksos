@@ -9,7 +9,6 @@
   services.fwupd.enable = false;
 
   niksos = {
-    bluetooth = false;
     desktop = {
       enable = false;
       hyprland = false;
@@ -17,20 +16,24 @@
       apps = false;
       games = false;
     };
-    fingerprint = false;
-    graphics = {
-      enable = false;
-      intel = false;
-      nvidia = false;
-    };
-    neovim = false;
-    portable = {
-      enable = false;
-      hyprland = {
-        powerSaver = "";
-        performance = "";
+    hardware = {
+      fingerprint = false;
+      bluetooth = false;
+      joycond = false;
+      graphics = {
+        enable = false;
+        intel = false;
+        nvidia = false;
+      };
+      portable = {
+        enable = false;
+        hyprland = {
+          powerSaver = "";
+          performance = "";
+        };
       };
     };
+    neovim = false;
     server = false;
   };
 

@@ -26,7 +26,7 @@ in {
           "${uwsm} finalize"
           "${hyprlock}" # Lock screen
         ]
-        ++ lib.optional osConfig.niksos.portable.enable "powermode sync";
+        ++ lib.optional osConfig.niksos.hardware.portable.enable "powermode sync";
     };
   };
 }

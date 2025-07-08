@@ -5,22 +5,8 @@
   ...
 }: let
   inherit (config) niksos;
-  cfg = niksos.portable;
+  cfg = niksos.hardware.portable;
 in {
-  options.niksos.portable = {
-    enable = lib.mkEnableOption "battery optimisers";
-    hyprland = let
-      gen = mode:
-        lib.mkOption {
-          default = "";
-          description = "Shell commands to run when switching to ${mode} mode.";
-          type = lib.types.lines;
-        };
-    in {
-      powerSaver = gen "power-saver";
-      performance = gen "performance";
-    };
-  };
   config = {
     services = lib.mkIf cfg.enable {
       logind = {

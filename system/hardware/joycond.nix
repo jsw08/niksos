@@ -3,9 +3,7 @@
   lib,
   ...
 }: {
-  options.niksos.joycond = lib.mkEnableOption "support for nintendo switch controllers.";
-
-  config.services = lib.mkIf config.niksos.joycond {
+  config.services = lib.mkIf config.niksos.hardware.joycond {
     usbmuxd.enable = true;
     joycond.enable = true;
   };

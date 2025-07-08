@@ -5,8 +5,10 @@
 
   niksos = {
     server = true;
-    graphics.nvidia = false; #FIXME: Compile error
-    graphics.intel = true;
+    hardware.graphics = {
+      nvidia = false; #FIXME: Compile error
+      intel = true;
+    };
   };
 
   services.immich = {

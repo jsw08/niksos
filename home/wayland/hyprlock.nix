@@ -15,7 +15,7 @@ in {
         hide_cursor = false;
         no_fade_in = true;
       };
-      auth."fingerprint:enabled" = true;
+      auth."fingerprint:enabled" = osConfig.niksos.hardware.fingerprint;
 
       label = [
         {

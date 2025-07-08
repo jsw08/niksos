@@ -4,9 +4,7 @@
   pkgs,
   ...
 }: {
-  options.niksos.bluetooth = lib.mkEnableOption "bluetooth related stuff.";
-
-  config = lib.mkIf config.niksos.bluetooth {
+  config = lib.mkIf config.niksos.hardware.bluetooth {
     hardware.bluetooth = {
       enable = true;
       input.General.ClassicBondedOnly = false;

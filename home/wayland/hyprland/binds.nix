@@ -8,7 +8,8 @@
 }: let
   inherit (lib) getExe;
   inherit (config.lib.stylix.colors) base0D;
-  inherit (osConfig.niksos) desktop portable bluetooth;
+  inherit (osConfig.niksos) desktop hardware;
+  inherit (hardware) portable bluetooth;
   inherit (desktop) games;
 
   runOnce = program: "pgrep ${program} || uwsm app -- ${program}";

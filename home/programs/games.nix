@@ -5,8 +5,9 @@
   lib,
   ...
 }: let
-  inherit (osConfig.niksos) desktop bluetooth;
+  inherit (osConfig.niksos) desktop hardware;
   inherit (desktop) games;
+  inherit (hardware) bluetooth;
 in {
   # Also look at system/programs/games.nix (some programs have to be overlayed or have systemwide modules that have to be installed.)
   home.packages = lib.mkIf games ([
