@@ -39,8 +39,8 @@
     };
 
     neovim = true;
-    games = true;
     desktop = {
+      games = true;
       enable = true;
       hyprland = true;
       kde = true;

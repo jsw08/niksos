@@ -18,7 +18,9 @@ in {
   ];
 
   options.niksos.desktop = {
-    enable = mkEO "enable desktop related programs.";
+    enable = mkEO "enable desktop related programs (+home manager).";
+    apps = mkEO "extra bloat.";
+    games = mkEO "gaming related programs";
     hyprland = mkEO "enable hyprland related programs.";
     kde = mkEO "enable kde specialisation.";
   };
@@ -28,6 +30,10 @@ in {
     {
       assertion = cfg.enable;
       message = "You need to enable desktop for the hyprland/kde module to work";
+    }
+    {
+      assertion = config.niksos.desktop.enable;
+      message = "The games option needs desktop to be enabled for it to work properly (it enables home-manager).";
     }
   ];
 }

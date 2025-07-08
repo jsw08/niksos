@@ -14,9 +14,10 @@
       enable = false;
       hyprland = false;
       kde = false;
+      apps = false;
+      games = false;
     };
     fingerprint = false;
-    games = false;
     graphics = {
       enable = false;
       intel = false;

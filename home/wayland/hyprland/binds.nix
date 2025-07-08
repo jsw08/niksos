@@ -8,7 +8,8 @@
 }: let
   inherit (lib) getExe;
   inherit (config.lib.stylix.colors) base0D;
-  inherit (osConfig.niksos) games portable;
+  inherit (osConfig.niksos) desktop portable bluetooth;
+  inherit (desktop) games;
 
   runOnce = program: "pgrep ${program} || uwsm app -- ${program}";
   uwsm = getExe pkgs.uwsm;
@@ -86,7 +87,7 @@ in {
         "$m, Escape, exec, ${hyprlock}"
 
         "$m, A, exec, ${pulsemixer}"
-        "$m, B, exec, ${bluetui}"
+
         "$m, N, exec, ${nmtui}"
         ''
           $m, S, exec, bash -c 'hyprctl notify -1 5000 "rgb(${base0D})" "$(${getExe (import ./scripts.nix {inherit pkgs;}).statusnotify})"'
@@ -106,6 +107,7 @@ in {
         "$m SHIFT, j, movewindow, d"
       ]
       ++ workspaces
+      ++ lib.optional bluetooth "$m, B, exec, ${bluetui}"
       ++ lib.optionals games (let
         torzu = "${
           appE inputs.nixpkgs-torzu.legacyPackages.${pkgs.system}.torzu
