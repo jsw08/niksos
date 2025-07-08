@@ -1,6 +1,6 @@
 {osConfig, ...}: {
   programs.nixcord = {
-    enable = true;
+    enable = osConfig.niksos.desktop.apps;
     discord.enable = false;
     vesktop.enable = true;
     vesktopConfig = {

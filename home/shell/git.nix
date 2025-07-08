@@ -7,6 +7,6 @@
       extraConfig.push.autoSetupRemote = true;
       lfs.enable = true;
     };
-    git-credential-oauth.enable = true;
+    git-credential-oauth.enable = true; #FIXME: need to relogin for each push for some reason.
   };
 }
