@@ -4,8 +4,9 @@ let
 
   laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZebJtRg3+dZYDGOw7dyjHL69i4MTFdoQEeHlW/AsDu";
   lapserv = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyy+Tvkelrghc3Vftq8aTnUckec9BV8Ba8XAKCDc+Uw ";
+  desktop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBBwuisiDr/WiZ4Q/HUIiPORiC8Ik47+qRvB0SL3enf";
 
-  systems = [laptop lapserv jswLaptop jswLapserv];
+  systems = [laptop lapserv desktop jswLaptop jswLapserv];
 in {
   "transfer-sh.age".publicKeys = systems;
   "password.age".publicKeys = systems;
