@@ -15,6 +15,8 @@ in {
       inputs.nixpkgs-torzu.legacyPackages.${pkgs.system}.torzu
       pkgs.gale
       pkgs.adwsteamgtk
+      pkgs.oversteer
+      pkgs.sidequest
 
       # (
       #   pkgs.appimageTools.wrapType1 rec {

@@ -16,6 +16,7 @@ in {
 
   home.packages = mkIf cfg [
     pkgs.wl-clipboard
+    pkgs.wf-recorder
   ];
 
   home.sessionVariables = mkIf cfg {
