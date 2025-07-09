@@ -9,11 +9,10 @@
   active = cfg && desktop.activeDesktop == "hyprland";
   ifActive = x: lib.mkIf active x;
 in {
-  specialisation.hyprland.configuration =
-    lib.mkIf cfg
-    && !active {
-      niksos.desktop.activeDesktop = lib.mkForce "hyprland";
-    };
+  specialisation.hyprland.configuration = lib.mkIf (cfg
+    && !active) {
+    niksos.desktop.activeDesktop = lib.mkForce "hyprland";
+  };
 
   programs = ifActive {
     hyprland = {

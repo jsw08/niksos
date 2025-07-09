@@ -9,11 +9,10 @@
   active = cfg && desktop.activeDesktop == "kde";
   ifActive = x: lib.mkIf active x;
 in {
-  specialisation.kde.configuration =
-    lib.mkIf cfg
-    && !active {
-      niksos.desktop.activeDesktop = lib.mkForce "kde";
-    };
+  specialisation.kde.configuration = lib.mkIf (cfg
+    && !active) {
+    niksos.desktop.activeDesktop = lib.mkForce "kde";
+  };
 
   services = ifActive {
     greetd.settings = let
