@@ -6,7 +6,6 @@
     ./other.nix
     ./repl
     ./starship.nix
-    ./transfer.nix
     ./yazi.nix
     ./zoxide.nix
   ];

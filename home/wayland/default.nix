@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = osConfig.niksos.desktop.hyprland;
+  cfg = osConfig.programs.hyprland.enable;
 in {
   imports = [
     ./fuzzel.nix

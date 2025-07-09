@@ -15,7 +15,7 @@ in {
   ];
 
   wayland.windowManager.hyprland = {
-    enable = osConfig.niksos.desktop.hyprland;
+    inherit (osConfig.programs.hyprland) enable;
     settings = {
       env = [
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"

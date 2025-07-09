@@ -17,7 +17,7 @@ in {
       power-profiles-daemon.enable = true;
     };
 
-    environment.systemPackages = lib.mkIf niksos.desktop.hyprland [
+    environment.systemPackages = lib.mkIf config.programs.hyprland.enable [
       (pkgs.writeScriptBin "powermode" ''
         #!/usr/bin/env bash
 

@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) optionals mkEnableOption mkDefault;
+  inherit (lib) optionals mkDefault;
   inherit (config.niksos.hardware) graphics;
   inherit (graphics) enable nvidia intel;
 

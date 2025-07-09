@@ -6,7 +6,7 @@
   inherit (config.lib.stylix.colors) base05;
 in {
   programs.hyprlock = {
-    enable = osConfig.niksos.desktop.hyprland;
+    inherit (osConfig.programs.hyprland) enable;
 
     settings = {
       general = {

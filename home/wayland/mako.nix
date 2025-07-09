@@ -1,6 +1,8 @@
-{osConfig, ...}: {
+{osConfig, ...}: let
+  inherit (osConfig.niksos) desktop;
+in {
   services.mako = {
-    enable = osConfig.niksos.desktop.hyprland;
+    inherit (osConfig.programs.hyprland) enable;
     settings.defaultTimeout = 5000;
   };
 }

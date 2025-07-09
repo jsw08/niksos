@@ -5,7 +5,7 @@
   ...
 }: {
   programs.fuzzel = {
-    enable = osConfig.niksos.desktop.hyprland;
+    inherit (osConfig.programs.hyprland) enable;
     settings.main = {
       launch-prefix = "${lib.getExe pkgs.uwsm} app --";
     };
