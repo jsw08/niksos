@@ -13,8 +13,9 @@
     desktop = {
       games = true;
       enable = true;
-      hyprland = false; #TODO: flip both, just trying if it works.
+      hyprland = true; #TODO: flip both, just trying if it works.
       kde = true;
+      activeDesktop = "hyprland";
     };
   };
   home-manager.users.jsw.wayland.windowManager.hyprland.settings = {
