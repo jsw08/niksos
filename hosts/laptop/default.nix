@@ -5,28 +5,13 @@
     ./wluma.nix
   ];
 
-  services.printing = {
-    enable = true;
-    startWhenNeeded = true;
-  };
-  hardware.printers = {
-    ensureDefaultPrinter = "Broeder";
-    ensurePrinters = [
-      {
-        deviceUri = "ipp://192.168.1.33/ipp";
-        location = "home";
-        name = "Broeder";
-        model = "everywhere";
-      }
-    ];
-  };
-
   # programs.evolution.enable = true; # FIXME: move to appropiate place.
   niksos = {
     hardware = {
       joycond = false; #NOTE: enable when game night lol
       fingerprint = true;
       bluetooth = true;
+      printer = true;
 
       portable = {
         enable = true;

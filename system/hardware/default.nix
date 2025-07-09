@@ -10,11 +10,13 @@ in {
     ./graphics.nix
     ./joycond.nix
     ./power.nix
+    ./printer.nix
   ];
 
   options.niksos.hardware = {
     bluetooth = mkEO "bluetooth related stuff.";
     fingerprint = mkEO "fingerprint support.";
+    printer = mkEO "hh1 printer support.";
 
     graphics = {
       enable = mkEO "core graphics";
