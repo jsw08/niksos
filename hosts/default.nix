@@ -20,6 +20,7 @@ in {
       "laptop"
       "lapserv"
       "minimal"
+      "desktop"
     ];
   in {
     # Systems
