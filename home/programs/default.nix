@@ -2,10 +2,11 @@
   imports = [
     ./firefox.nix
     ./games.nix
+    ./kodi.nix
     ./mpv.nix
     ./neovim.nix
     ./nixcord.nix
-    ./kodi.nix
     ./other.nix
+    ./xdg.nix
   ];
 }
