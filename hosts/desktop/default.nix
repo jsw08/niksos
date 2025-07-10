@@ -25,16 +25,16 @@
       "HDMI-A-1,1920x1080,2560x540,1"
     ];
     workspace = [
-      "workspace = 1, monitor:DP-3"
-      "workspace = 2, monitor:DP-3"
-      "workspace = 3, monitor:DP-3"
-      "workspace = 4, monitor:HDMI-A-1"
-      "workspace = 5, monitor:HDMI-A-1"
-      "workspace = 6, monitor:DP-3"
-      "workspace = 7, monitor:DP-3"
-      "workspace = 8, monitor:DP-3"
-      "workspace = 9, monitor:DP-3"
-      "workspace = 0, monitor:HDMI-A-1"
+      "1, monitor:DP-3"
+      "2, monitor:DP-3"
+      "3, monitor:DP-3"
+      "4, monitor:HDMI-A-1"
+      "5, monitor:HDMI-A-1"
+      "6, monitor:DP-3"
+      "7, monitor:DP-3"
+      "8, monitor:DP-3"
+      "9, monitor:DP-3"
+      "0, monitor:HDMI-A-1"
     ];
   };
 }
