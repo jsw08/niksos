@@ -7,8 +7,8 @@
   inherit (config) niksos;
   cfg = niksos.hardware.portable;
 in {
-  config = {
-    services = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
+    services = {
       logind = {
         powerKey = "suspend-then-hibernate";
         powerKeyLongPress = "poweroff";
