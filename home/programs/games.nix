@@ -17,6 +17,7 @@ in {
       pkgs.adwsteamgtk
       pkgs.oversteer
       pkgs.sidequest
+      pkgs.azahar
 
       # (
       #   pkgs.appimageTools.wrapType1 rec {
