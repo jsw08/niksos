@@ -1,8 +1,5 @@
 {
-  programs.foot = {
-    enable = true;
-    settings = {};
-  };
+  programs.foot.enable = true;
 
   xdg.desktopEntries = builtins.listToAttrs (map (x: {
     name = "${x}";

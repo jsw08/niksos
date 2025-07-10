@@ -46,8 +46,8 @@
       animation = [
         "border, 1, 2, default"
         "fade, 1, 4, default"
-        "windows, 1, 3, default, popin 80%"
-        "workspaces, 1, 2, default, slide"
+        "windows, 1, 1, default, popin 80%"
+        "workspaces, 1, 0.8, default, slide"
       ];
     };
 
