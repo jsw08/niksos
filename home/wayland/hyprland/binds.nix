@@ -25,7 +25,8 @@
   termappE = termappE: termapp (getExe termappE);
 
   foot = appE config.programs.foot.package;
-  fuzzel = appE config.programs.fuzzel.package;
+  # fuzzel = appE config.programs.fuzzel.package; #NOTE: Fuzzel is disabled
+  tofi = "sh -c '${uwsm} app -- $(${config.programs.tofi.package}/bin/tofi-drun)'";
   firefox = appE config.programs.firefox.package;
   playerctl = appE pkgs.playerctl;
   brightnessctl = appE pkgs.brightnessctl;
@@ -82,7 +83,8 @@ in {
         "$m, O, pseudo,"
         "$m ALT, ,resizeactive,"
 
-        "$m, D, exec, ${fuzzel}"
+        # "$m, D, exec, ${fuzzel}" #NOTE: Fuzzel is disabled
+        "$m, D, exec, ${tofi}"
         "$m, Return, exec, ${foot}"
         "$m Shift, Return, exec, ${firefox}"
         "$m, Escape, exec, ${hyprlock}"

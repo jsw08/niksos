@@ -12,6 +12,7 @@ in {
     ./hyprland
     ./hyprlock.nix
     ./mako.nix
+    ./tofi.nix
   ];
 
   home.packages = mkIf cfg [
