@@ -29,6 +29,7 @@
     neovim = true;
     desktop = {
       games = true;
+      apps = true;
       enable = true;
       hyprland = true;
       kde = true;

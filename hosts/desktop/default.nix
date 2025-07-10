@@ -12,6 +12,7 @@
     neovim = true;
     desktop = {
       games = true;
+      apps = true;
       enable = true;
       hyprland = true; #TODO: flip both, just trying if it works.
       kde = true;
