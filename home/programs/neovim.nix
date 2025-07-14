@@ -56,6 +56,10 @@
           lsp.server = "denols";
           extensions.ts-error-translator.enable = true;
         };
+        clang = {
+          enable = true;
+          lsp.enable = false;
+        };
 
         bash.enable = true;
         css.enable = true;

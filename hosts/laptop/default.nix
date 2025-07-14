@@ -5,6 +5,7 @@
     ./wluma.nix
   ];
 
+  programs.appimage.enable = true;
   # programs.evolution.enable = true; # FIXME: move to appropiate place.
   niksos = {
     hardware = {
