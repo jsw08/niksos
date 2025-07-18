@@ -53,7 +53,7 @@
 
         ts = {
           enable = true;
-          lsp.server = "denols";
+          lsp.server = "ts_ls";
           extensions.ts-error-translator.enable = true;
         };
         clang = {
