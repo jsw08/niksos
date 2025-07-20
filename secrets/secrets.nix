@@ -18,7 +18,7 @@ in {
   "dcbot.age".publicKeys = keys;
   "bread-dcbot.age".publicKeys = keys;
   "matrix-registration.age".publicKeys = keys;
-  "cloudflare-acme.age".publicKeys = keys;
   "mail-admin.age".publicKeys = keys;
   "zitadel.age".publicKeys = keys;
+  "zitadel-key.age".publicKeys = keys;
 }

@@ -15,7 +15,7 @@ in {
 
       services.zitadel = {
         enable = true;
-        masterKeyFile = "/etc/default/zitadel";
+        masterKeyFile = config.age.secrets.zitadel-key.path;
         settings = {
           inherit Port ExternalDomain;
           ExternalPort = 443;
