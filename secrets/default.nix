@@ -36,5 +36,6 @@ in {
       #   else "root";
       file = ./mail-admin.age;
     };
+    zitadel.file = ./zitadel.age;
   };
 }

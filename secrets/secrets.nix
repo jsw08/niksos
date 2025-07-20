@@ -20,4 +20,5 @@ in {
   "matrix-registration.age".publicKeys = keys;
   "cloudflare-acme.age".publicKeys = keys;
   "mail-admin.age".publicKeys = keys;
+  "zitadel.age".publicKeys = keys;
 }
