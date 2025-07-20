@@ -59,7 +59,7 @@ in {
                 FirstName = "Jurn";
                 LastName = "Wubben";
                 Email.Verified = true;
-                Password = "changeme";
+                Password = "Changeme1!";
                 PasswordChangeRequired = true;
               };
             };
