@@ -46,7 +46,7 @@ in {
             ENABLED = true;
             SUBJECT_PREFIX = "JSWGit";
             PROTOCOL = "smtps";
-            SMTP_ADDR = "mail.jsw.tf";
+            SMTP_ADDR = "mail.jsw.tf"; #FIXME: replace with config... to stalwart setting once using stalwart nixos module.
             SMTP_PORT = 465;
             FROM = "git@jsw.tf";
             USER = "git";

@@ -37,5 +37,9 @@ in {
       file = ./forgejo-mailpass.age;
       owner = abstrServiceUser "forgejo";
     };
+    immich-oidc = mkIf server {
+      file = ./immich-oidc.age;
+      owner = abstrServiceUser "immich";
+    };
   };
 }

@@ -21,4 +21,5 @@ in {
   "mail-admin.age".publicKeys = keys;
   "zitadel-key.age".publicKeys = keys;
   "forgejo-mailpass.age".publicKeys = keys;
+  "immich-oidc.age".publicKeys = keys;
 }
