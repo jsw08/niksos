@@ -20,7 +20,8 @@
     + "/";
   programDir = mainDir + "program";
   denoDir = mainDir + "deno";
-  path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.typst pkgs.deno]);
+  tokenDir = mainDir + "Breadener-token";
+  path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.deno pkgs.git]);
 in {
   config = lib.mkIf config.niksos.server {
     systemd.services.${userGroup} = {
@@ -40,14 +41,15 @@ in {
         cd "${mainDir}"
         chown -R ${userGroup}:${userGroup} ${mainDir}* || echo
 
-        mkdir -p "${programDir}" "${denoDir}"
-        if [ -d "${programDir}" ]; then
-          git clone "${gitRepo}"
+        rm -rf "${tokenDir}" || echo
+        mkdir -p "${denoDir}" "${tokenDir}"
+        ln -s "${config.age.secrets.${userGroup}.path}" "${tokenDir}/prodBot.json"
+
+        if [ ! -d "${programDir}" ]; then
+          git clone "${gitRepo}" "${programDir}"
         fi
         chmod -R 750 ${mainDir}* || echo
 
-        rm "${mainDir}/prodBot.json" || echo
-        ln -s "${config.age.secrets.${userGroup}.path}" "${mainDir}/prodBot.json"
 
         cd "${programDir}"
         git fetch
