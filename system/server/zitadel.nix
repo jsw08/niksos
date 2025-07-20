@@ -13,14 +13,74 @@ in {
         reverse_proxy localhost:${builtins.toString Port}
       '';
 
-      services.zitadel = {
-        enable = true;
-        masterKeyFile = config.age.secrets.zitadel-key.path;
-        settings = {
-          inherit Port ExternalDomain;
-          ExternalPort = 443;
+      # services.zitadel = {
+      #   enable = true;
+      #   masterKeyFile = config.age.secrets.zitadel-key.path;
+      #   settings = {
+      #     inherit Port ExternalDomain;
+      #     ExternalPort = 443;
+      #   };
+      #   extraSettingsPaths = [config.age.secrets.zitadel.path];
+      # };
+      systemd.services.zitadel = {
+        requires = ["postgresql.service"];
+        after = ["postgresql.service"];
+      };
+
+      services = {
+        zitadel = {
+          enable = true;
+          masterKeyFile = config.age.secrets.zitadel-key.path;
+          settings = {
+            inherit Port ExternalDomain;
+            ExternalPort = 443;
+            Database.postgres = {
+              Host = "/var/run/postgresql/";
+              Port = 5432;
+              Database = "zitadel";
+              User = {
+                Username = "zitadel";
+                SSL.Mode = "disable";
+              };
+              Admin = {
+                Username = "zitadel";
+                SSL.Mode = "disable";
+                ExistingDatabase = "zitadel";
+              };
+            };
+            ExternalSecure = true;
+          };
+          steps.FirstInstance = {
+            InstanceName = "jsw";
+            Org = {
+              Name = "jsw";
+              Human = {
+                UserName = "jsw@jsw.tf";
+                FirstName = "Jurn";
+                LastName = "Wubben";
+                Email.Verified = true;
+                Password = "changeme";
+                PasswordChangeRequired = true;
+              };
+            };
+            LoginPolicy.AllowRegister = false;
+          };
+          openFirewall = true;
         };
-        extraSettingsPaths = [config.age.secrets.zitadel.path];
+
+        postgresql = {
+          enable = true;
+          enableJIT = true;
+          ensureDatabases = ["zitadel"];
+          ensureUsers = [
+            {
+              name = "zitadel";
+              ensureDBOwnership = true;
+              ensureClauses.login = true;
+              ensureClauses.superuser = true;
+            }
+          ];
+        };
       };
     };
 }

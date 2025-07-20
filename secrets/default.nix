@@ -29,10 +29,6 @@ in {
       # owner = serviceUser "stalwart-mail"; #FIXME: revert when stopped using docker for stalwart.
       file = ./mail-admin.age;
     };
-    zitadel = mkIf server {
-      file = ./zitadel.age;
-      owner = abstrServiceUser "zitadel";
-    };
     zitadel-key = mkIf server {
       file = ./zitadel-key.age;
       owner = abstrServiceUser "zitadel";
