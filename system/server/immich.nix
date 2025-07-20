@@ -9,12 +9,14 @@
   cfg = config.niksos.server;
   oidcSubstitute = "*@#OPENIDCLIENTSECRET#@*";
   config-dir = "/run/immich-conf";
+  url = "photos.jsw.tf";
+  httpsUrl = "https://" + url;
 in {
   config =
     mkIf cfg
     {
       users.users.${config.services.immich.user}.extraGroups = ["video" "render"];
-      services.caddy.virtualHosts."photos.jsw.tf".extraConfig = ''
+      services.caddy.virtualHosts.${url}.extraConfig = ''
         reverse_proxy localhost:9002
       '';
 
@@ -29,7 +31,7 @@ in {
         #NOTE: immich doesn't support variables in their config file, so we have to subsitute ourselfs..
         environment.IMMICH_CONFIG_FILE = mkForce "${config-dir}/immich.json";
         settings = {
-          server.externalDomain = "https://photos.jsw.tf";
+          server.externalDomain = httpsUrl;
           oauth = {
             enabled = true;
             autoLaunch = true;
@@ -38,6 +40,8 @@ in {
             clientId = "329735769805619570";
             clientSecret = oidcSubstitute;
             issuerUrl = "https://${config.services.zitadel.settings.ExternalDomain}/.well-known/openid-configuration";
+            mobileRedirectUri = "${httpsUrl}/api/oauth/mobile-redirect";
+            mobileOverrideEnabled = true;
           };
           passwordLogin.enabled = false;
           ffmpeg = {
