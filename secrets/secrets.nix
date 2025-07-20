@@ -16,6 +16,7 @@ in {
   "transfer-sh.age".publicKeys = keys;
   "password.age".publicKeys = keys;
   "dcbot.age".publicKeys = keys;
+  "bread-dcbot.age".publicKeys = keys;
   "matrix-registration.age".publicKeys = keys;
   "cloudflare-acme.age".publicKeys = keys;
   "mail-admin.age".publicKeys = keys;
