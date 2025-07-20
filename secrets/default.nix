@@ -33,5 +33,9 @@ in {
       file = ./zitadel-key.age;
       owner = abstrServiceUser "zitadel";
     };
+    forgejo-mailpass = mkIf server {
+      file = ./forgejo-mailpass.age;
+      owner = abstrServiceUser "forgejo";
+    };
   };
 }

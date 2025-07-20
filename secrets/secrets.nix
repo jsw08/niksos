@@ -20,4 +20,5 @@ in {
   "matrix-registration.age".publicKeys = keys;
   "mail-admin.age".publicKeys = keys;
   "zitadel-key.age".publicKeys = keys;
+  "forgejo-mailpass.age".publicKeys = keys;
 }
