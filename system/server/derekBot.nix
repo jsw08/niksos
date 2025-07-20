@@ -15,7 +15,7 @@
     + (
       if !cfg
       then ""
-      else config.systemd.services.bread-dcbot.serviceConfig.StateDirectory
+      else userGroup
     )
     + "/";
   programDir = mainDir + "program";
@@ -23,11 +23,11 @@
   path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.typst pkgs.deno]);
 in {
   config = lib.mkIf config.niksos.server {
-    systemd.services.bread-dcbot = {
+    systemd.services.${userGroup} = {
       enable = true;
       after = ["network.target"];
       wantedBy = ["default.target"];
-      description = "Breadener bot or smt.";
+      description = userGroup;
 
       environment = {
         "DENO_DIR" = denoDir;
