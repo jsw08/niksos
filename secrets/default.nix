@@ -13,6 +13,13 @@ in {
         then serviceUser "dcbot" # "dcbot" doesn't exist on e.g laptop.
         else "root";
     };
+    bread-dcbot = {
+      file = ./bread-dcbot.age;
+      owner =
+        if config.niksos.server
+        then serviceUser "bread-dcbot" # "dcbot" doesn't exist on e.g laptop.
+        else "root";
+    };
     password.file = ./password.age;
     matrix-registration = {
       file = ./matrix-registration.age;
