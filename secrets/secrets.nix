@@ -22,4 +22,5 @@ in {
   "zitadel-key.age".publicKeys = keys;
   "forgejo-mailpass.age".publicKeys = keys;
   "immich-oidc.age".publicKeys = keys;
+  "seafile-oidc.age".publicKeys = keys;
 }
