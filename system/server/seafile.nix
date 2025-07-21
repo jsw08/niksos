@@ -87,24 +87,24 @@ in {
       sfCfg = config.services.seafile;
     in {
       seaf-server = {
-        preStart = ''
-          umask 077
-          cp -f '/etc/seafile' '${config-dir}'
-          chmod u+w -R '${config-dir}'
-          ${replaceSecretBin} '${oidcSubstitute}' '${config.age.secrets.seafile-oidc.path}' '${config-dir}/seahub_settings.py'
-        '';
-        serviceConfig.ExecStart = mkForce ''
-          ${lib.getExe sfCfg.seahubPackage.seafile-server} \
-          --foreground \
-          -F '${config-dir} \
-          -c ${ccnetDir} \
-          -d ${sfCfg.dataDir} \
-          -l /var/log/seafile/server.log \
-          -P /run/seafile/server.pid \
-          -p /run/seafile
-        '';
+        # preStart = ''
+        #   umask 077
+        #   cp -f '/etc/seafile' '${config-dir}'
+        #   chmod u+w -R '${config-dir}'
+        #   ${replaceSecretBin} '${oidcSubstitute}' '${config.age.secrets.seafile-oidc.path}' '${config-dir}/seahub_settings.py'
+        # '';
+        # serviceConfig.ExecStart = mkForce ''
+        #   ${lib.getExe sfCfg.seahubPackage.seafile-server} \
+        #   --foreground \
+        #   -F '${config-dir} \
+        #   -c ${ccnetDir} \
+        #   -d ${sfCfg.dataDir} \
+        #   -l /var/log/seafile/server.log \
+        #   -P /run/seafile/server.pid \
+        #   -p /run/seafile
+        # '';
       };
-      seahub.environment.SEAFILE_CENTRAL_CONF_DIR = mkForce config-dir;
+      # seahub.environment.SEAFILE_CENTRAL_CONF_DIR = mkForce config-dir;
     };
   };
 }
