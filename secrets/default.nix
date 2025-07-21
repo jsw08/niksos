@@ -8,6 +8,7 @@
 
   serviceUser = x: config.systemd.services.${x}.serviceConfig.User;
   abstrServiceUser = x: config.services.${x}.user;
+  abstrServiceGroup = x: config.services.${x}.group;
 in {
   age.secrets = {
     password.file = ./password.age;
@@ -44,6 +45,7 @@ in {
     seafile-oidc = mkIf server {
       file = ./seafile-oidc.age;
       owner = abstrServiceUser "seafile";
+      mode = "400";
     };
   };
 }

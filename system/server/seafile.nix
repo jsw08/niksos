@@ -12,7 +12,6 @@
   httpsUrl = "https://" + url;
   authUrl = config.services.zitadel.settings.ExternalDomain;
   httpsAuthUrl = "https://" + authUrl;
-  oidcSubstitute = "*@#OPENIDCLIENTSECRET#@*";
 in {
   config = mkIf cfg {
     services.caddy.virtualHosts.${url}.extraConfig = ''
@@ -48,19 +47,20 @@ in {
         OAUTH_ACTIVATE_USER_AFTER_CREATION = True
         OAUTH_ENABLE_INSECURE_TRANSPORT = False
         OAUTH_CLIENT_ID = "329743411726844274"
-        OAUTH_CLIENT_SECRET = "${oidcSubstitute}"
+
+        with open("${config.age.secrets.seafile-oidc.path}") as f:
+          OAUTH_CLIENT_SECRET = f.read()
+
         OAUTH_REDIRECT_URL = '${httpsUrl}/oauth/callback/'
-        OAUTH_PROVIDER_DOMAIN = '${authUrl}'
-        OAUTH_PROVIDER = 'JSW Auth'
+        OAUTH_PROVIDER = '${authUrl}'
         OAUTH_AUTHORIZATION_URL = '${httpsAuthUrl}/oauth/v2/authorize'
         OAUTH_TOKEN_URL = '${httpsAuthUrl}/oauth/v2/token'
         OAUTH_USER_INFO_URL = '${httpsAuthUrl}/oidc/v1/userinfo'
-        OAUTH_SCOPE = ["user",]
+        OAUTH_SCOPE = ["openid", "profile", "email"]
         OAUTH_ATTRIBUTE_MAP = {
-            "id": (True, "email"),
-            "name": (False, "name"),
-            "email": (False, "contact_email"),
-            "uid": (True, "uid"),
+            "sub": (True, "uid"),
+            "name": (True, "name"),
+            "email": (True, "contact_email")
         }
       '';
       seafileSettings = {
@@ -74,6 +74,13 @@ in {
         };
       };
     };
+
+    # environment.etc."seafile/seahub_settings.py" = {
+    #   text = mkForce null; # NOTE: If breaky, check https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/seafile.nix#L22. Using hardcoded values instead of the ones in the module so if there changes, things might break.
+    #   source = config.age.secrets.seafile-seahubconf.path;
+    #   user = "seafile";
+    #   group = "seafile";
+    # };
 
     #NOTE: Overwriting parts of services so that it uses a different root. When upgrading. Please check the following two things:
     ## * If seafile still uses seafile_settings.py to store openid settings.systemd
