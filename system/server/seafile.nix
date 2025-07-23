@@ -53,9 +53,9 @@ in {
 
         OAUTH_REDIRECT_URL = '${httpsUrl}/oauth/callback/'
         OAUTH_PROVIDER = '${authUrl}'
-        OAUTH_AUTHORIZATION_URL = '${httpsAuthUrl}/oauth/v2/authorize'
-        OAUTH_TOKEN_URL = '${httpsAuthUrl}/oauth/v2/token'
-        OAUTH_USER_INFO_URL = '${httpsAuthUrl}/oidc/v1/userinfo'
+        OAUTH_AUTHORIZATION_URL = '${httpsAuthUrl}/oauth/v2/authorize/'
+        OAUTH_TOKEN_URL = '${httpsAuthUrl}/oauth/v2/token/'
+        OAUTH_USER_INFO_URL = '${httpsAuthUrl}/oidc/v1/userinfo/'
         OAUTH_SCOPE = ["openid", "profile", "email"]
         OAUTH_ATTRIBUTE_MAP = {
             "sub": (True, "uid"),
