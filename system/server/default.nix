@@ -8,8 +8,8 @@
     ./index
     ./mail.nix
     ./matrix.nix
-    ./seafile.nix
     ./temp.nix
+    ./zitadel.nix
   ];
   options.niksos.server = lib.mkEnableOption "server servcies (such as caddy)."; #TODO: per service option.
 }
