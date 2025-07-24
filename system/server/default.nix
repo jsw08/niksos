@@ -8,7 +8,6 @@
     ./index
     ./mail.nix
     ./matrix.nix
-    ./seafile.nix
     ./temp.nix
     ./zitadel.nix
   ];

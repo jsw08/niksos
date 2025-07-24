@@ -42,10 +42,5 @@ in {
       file = ./immich-oidc.age;
       owner = abstrServiceUser "immich";
     };
-    seafile-oidc = mkIf server {
-      file = ./seafile-oidc.age;
-      owner = abstrServiceUser "seafile";
-      mode = "400";
-    };
   };
 }
