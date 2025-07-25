@@ -56,6 +56,12 @@ in {
       };
 
       nginx.enable = lib.mkForce false;
+      phpfpm.pools.nextcloud.settings = let
+        inherit (config.services.caddy) user group;
+      in {
+        "listen.owner" = user;
+        "listen.group" = group;
+      };
       caddy.virtualHosts."${host}".extraConfig = ''
         encode zstd gzip
 
