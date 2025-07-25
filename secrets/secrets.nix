@@ -22,4 +22,5 @@ in {
   "zitadel-key.age".publicKeys = keys;
   "forgejo-mailpass.age".publicKeys = keys;
   "immich-oidc.age".publicKeys = keys;
+  "nextcloud-admin-pass.age".publicKeys = keys;
 }

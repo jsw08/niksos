@@ -10,6 +10,7 @@
     ./matrix.nix
     ./temp.nix
     ./zitadel.nix
+    ./nextcloud.nix
   ];
   options.niksos.server = lib.mkEnableOption "server servcies (such as caddy)."; #TODO: per service option.
 }

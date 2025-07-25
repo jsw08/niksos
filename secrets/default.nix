@@ -42,5 +42,9 @@ in {
       file = ./immich-oidc.age;
       owner = abstrServiceUser "immich";
     };
+    nextcloud-admin-pass = mkIf server {
+      file = ./nextcloud-admin-pass.age;
+      owner = "nextcloud";
+    };
   };
 }
