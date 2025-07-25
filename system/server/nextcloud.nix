@@ -27,9 +27,17 @@ in {
 
         autoUpdateApps.enable = true;
         extraAppsEnable = true;
-        extraApps = with config.services.nextcloud.package.packages.apps; {
+        extraApps = {
           # https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/nextcloud/packages/nextcloud-apps.json
-          inherit calendar contacts mail notes tasks;
+          inherit
+            (config.services.nextcloud.package.packages.apps)
+            calendar
+            contacts
+            mail
+            notes
+            tasks
+            user_oidc
+            ;
         };
 
         settings = {
