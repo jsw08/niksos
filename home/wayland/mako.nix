@@ -3,6 +3,6 @@
 in {
   services.mako = {
     inherit (osConfig.programs.hyprland) enable;
-    settings.defaultTimeout = 5000;
+    settings.default_timeout = 5000;
   };
 }
