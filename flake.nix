@@ -7,6 +7,7 @@
       imports = [
         inputs.git-hooks-nix.flakeModule
         ./hosts
+        ./pkgs
       ];
 
       perSystem = {

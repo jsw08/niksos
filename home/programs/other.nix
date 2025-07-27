@@ -2,14 +2,17 @@
   pkgs,
   lib,
   osConfig,
+  self,
   ...
 }: {
-  home.packages = lib.mkIf osConfig.niksos.desktop.apps [
-    pkgs.spotify
-    pkgs.signal-desktop
-    pkgs.bambu-studio
-    pkgs.gimp
-    pkgs.inkscape
-    pkgs.thunderbird
-  ];
+  home.packages =
+    lib.optionals osConfig.niksos.desktop.apps [
+      pkgs.spotify
+      pkgs.signal-desktop
+      pkgs.bambu-studio
+      pkgs.gimp
+      pkgs.inkscape
+      pkgs.thunderbird
+    ]
+    ++ lib.optional osConfig.niksos.hardware.portable.enable self.packages.${pkgs.system}.visicut;
 }
