@@ -2,7 +2,6 @@
   imports = [
     ./hardware-configuration.nix
     ./virt.nix
-    ./wluma.nix
   ];
 
   programs.appimage.enable = true;
