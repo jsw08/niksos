@@ -53,7 +53,7 @@ in {
 
         cd "${programDir}"
         git fetch
-        git reset --hard HEAD
+        git reset --hard origin/HEAD
 
         DENO_DIR=${denoDir} deno i
       '';
