@@ -34,10 +34,15 @@ in {
             calendar
             contacts
             mail
-            notes
-            tasks
             user_oidc
+            whiteboard
+            phonetrack
             ;
+          external = pkgs.fetchNextcloudApp {
+            hash = "sha256-xVrnahqgXIXjk9gukrFgpwZiT2poUIDl83xV8hXPisw=";
+            url = "https://github.com/nextcloud-releases/external/releases/download/v6.0.2/external-v6.0.2.tar.gz";
+            license = "agpl3Plus";
+          };
         };
 
         settings = {
