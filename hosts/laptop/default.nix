@@ -5,7 +5,9 @@
   ];
 
   programs.appimage.enable = true;
-  # programs.evolution.enable = true; # FIXME: move to appropiate place.
+  # programs.evolution.enable = true; # TODO: move to appropiate place.
+
+  # ! HII
   niksos = {
     hardware = {
       joycond = false; #NOTE: enable when game night lol

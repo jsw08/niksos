@@ -15,6 +15,9 @@
     decoration = {
       rounding = 10;
       rounding_power = 3;
+
+      active_opacity = 0.95;
+      inactive_opacity = 0.8;
       blur = {
         enabled = true;
         brightness = 1.0;
