@@ -8,6 +8,7 @@
   host = "cloud.jsw.tf";
   nginxRoot = config.services.nginx.virtualHosts.${host}.root;
   fpmSocket = config.services.phpfpm.pools.nextcloud.socket;
+  imaginaryPort = 9005;
 in {
   config = lib.mkIf server {
     users.groups.nextcloud.members = ["nextcloud" "caddy"];
@@ -59,7 +60,11 @@ in {
             "OC\\Preview\\TXT"
             "OC\\Preview\\XBitmap"
             "OC\\Preview\\HEIC"
+            "OC\Preview\Imaginary"
           ];
+          preview_imaginary_url = "http://localhost:${builtins.toString imaginaryPort}";
+          preview_format = "webp";
+
           trusted_proxies = ["127.0.0.1"];
           maintenance_window_start = 1;
           log_type = "file";
@@ -70,6 +75,12 @@ in {
           adminpassFile = "${config.age.secrets.nextcloud-admin-pass.path}";
           dbtype = "pgsql";
         };
+      };
+      imaginary = {
+        enable = true;
+        port = imaginaryPort;
+        address = "localhost";
+        settings.returnSize = true;
       };
 
       nginx.enable = lib.mkForce false;
