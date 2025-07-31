@@ -60,6 +60,7 @@ in {
             "OC\\Preview\\XBitmap"
             "OC\\Preview\\HEIC"
           ];
+          trusted_proxies = ["127.0.0.1"];
         };
         config = {
           adminuser = "jsw-admin";
