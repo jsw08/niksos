@@ -7,19 +7,19 @@
       # i know this config is aweful but it does the job.
       config = ''
         (defsrc
-          caps d w e b h j k l
+          caps d w e b h j k l p
         )
 
         (deflayer default
-          @cap _ _ _ _ _ _ _ _
+          @cap _ _ _ _ _ _ _ _ _
         )
 
         (deflayer arrows
-          _ @tablayer @nextword @nextword @prevword left down up right
+          _ @tablayer @nextword @nextword @prevword left down up right PrintScreen
         )
 
         (deflayer tabs
-          _ _ _ _ _ @tableft _ _ @tabright
+          _ _ _ _ _ @tableft _ _ @tabright _
         )
 
 
