@@ -35,10 +35,10 @@ in {
             contacts
             mail
             user_oidc
-            whiteboard
             phonetrack
             ;
           external = pkgs.fetchNextcloudApp {
+            # https://github.com/helsinki-systems/nc4nix/blob/main/31.json #NOTE: 31.json is version.
             hash = "sha256-xVrnahqgXIXjk9gukrFgpwZiT2poUIDl83xV8hXPisw=";
             url = "https://github.com/nextcloud-releases/external/releases/download/v6.0.2/external-v6.0.2.tar.gz";
             license = "agpl3Plus";
@@ -62,9 +62,9 @@ in {
           ];
           trusted_proxies = ["127.0.0.1"];
           maintenance_window_start = 1;
-          "opcache.interned_strings_buffer" = 256;
           log_type = "file";
         };
+        phpOptions."opcache.interned_strings_buffer" = 24;
         config = {
           adminuser = "jsw-admin";
           adminpassFile = "${config.age.secrets.nextcloud-admin-pass.path}";
