@@ -61,6 +61,9 @@ in {
             "OC\\Preview\\HEIC"
           ];
           trusted_proxies = ["127.0.0.1"];
+          maintenance_window_start = 1;
+          "opcache.interned_strings_buffer" = 256;
+          log_type = "file";
         };
         config = {
           adminuser = "jsw-admin";
