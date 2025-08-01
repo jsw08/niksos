@@ -47,6 +47,7 @@ in {
         };
 
         settings = {
+          "auth.webauthn.enabled" = false; #INFO: We use openid baby...
           default_phone_region = "NL";
           enabledPreviewProviders = [
             "OC\\Preview\\BMP"
