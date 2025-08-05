@@ -21,11 +21,18 @@ in {
         lfs.enable = true;
 
         settings = {
+          default = {
+            APP_NAME = "JSW Git";
+            APP_SLOGAN = "We be gitting.";
+          };
+
+          cors.ENABLED = true;
           server = {
             inherit DOMAIN;
             ROOT_URL = "https://${DOMAIN}/";
             PROTOCOL = "http+unix";
             DISABLE_SSH = true;
+            LANDING_PAGE = "explore";
           };
           service = {
             ENABLE_INTERNAL_SIGNIN = false;
