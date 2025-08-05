@@ -12,7 +12,7 @@ in {
         request_body {
             max_size 512M
         }
-        reverse_proxy localhost:9004
+        reverse_proxy unix/${config.services.forgejo.settings.server.HTTP_ADDR}
       '';
 
       services.forgejo = {
@@ -24,7 +24,8 @@ in {
           server = {
             inherit DOMAIN;
             ROOT_URL = "https://${DOMAIN}/";
-            HTTP_PORT = 9004;
+            PROTOCOL = "http+unix";
+            DISABLE_SSH = true;
           };
           service = {
             ENABLE_INTERNAL_SIGNIN = false;
@@ -36,7 +37,8 @@ in {
           };
           "ui.meta" = {
             AUTHOR = "JSW Git";
-            DESCRIPTION = "Personal GIT-Forgejo instance.";
+            DESCRIPTION = "Jsw's Git Forge, a self-hosted Forgejo instance.";
+            KEYWORDS = "jsw,jsw08,jurnwubben,jurn,git,gitea,forgejo,forge";
           };
           actions = {
             ENABLED = true;
