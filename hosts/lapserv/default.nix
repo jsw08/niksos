@@ -3,6 +3,8 @@
     ./hardware-configuration.nix
   ];
 
+  networking.interfaces.enp2s0.wakeOnLan.enable = true;
+
   niksos = {
     server = true;
     hardware.graphics = {

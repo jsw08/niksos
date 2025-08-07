@@ -3,6 +3,8 @@
     ./hardware-configuration.nix
   ];
 
+  networking.interfaces.enp14s0.wakeOnLan.enable = true;
+
   niksos = {
     hardware = {
       bluetooth = true;
