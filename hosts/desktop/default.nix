@@ -3,6 +3,13 @@
     ./hardware-configuration.nix
   ];
 
+  services.sunshine = {
+    #TODO: migrate to module
+    enable = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
   networking.interfaces.enp14s0.wakeOnLan.enable = true;
 
   niksos = {
