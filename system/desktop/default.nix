@@ -9,6 +9,7 @@
   inherit (lib) mkIf optional;
 in {
   imports = [
+    ./comma.nix
     ./greetd.nix
     ./hyprland.nix
     ./pipewire.nix
