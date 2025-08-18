@@ -1,10 +1,10 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./virt.nix
+    # ./virt.nix
   ];
 
-  programs.appimage.enable = true;
+  # programs.appimage.enable = true;
   # programs.evolution.enable = true; # TODO: move to appropiate place.
 
   # ! HII
