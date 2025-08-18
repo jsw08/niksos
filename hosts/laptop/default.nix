@@ -13,7 +13,7 @@
       joycond = false; #NOTE: enable when game night lol
       fingerprint = true;
       bluetooth = true;
-      printer = true;
+      printer = false;
 
       portable = {
         enable = true;
