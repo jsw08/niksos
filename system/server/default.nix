@@ -3,7 +3,6 @@
     # ./matrix.nix
     ./bot.nix
     ./caddy.nix
-    ./coder.nix
     ./derekBot.nix
     ./forgejo.nix
     ./immich.nix

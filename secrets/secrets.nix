@@ -13,7 +13,6 @@ let
 
   keys = users ++ devices;
 in {
-  "transfer-sh.age".publicKeys = keys;
   "password.age".publicKeys = keys;
   "dcbot.age".publicKeys = keys;
   "bread-dcbot.age".publicKeys = keys;
@@ -23,5 +22,4 @@ in {
   "forgejo-mailpass.age".publicKeys = keys;
   "immich-oidc.age".publicKeys = keys;
   "nextcloud-admin-pass.age".publicKeys = keys;
-  "coder-env.age".publicKeys = keys;
 }
