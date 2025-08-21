@@ -44,7 +44,11 @@ in {
     };
     nextcloud-admin-pass = mkIf server {
       file = ./nextcloud-admin-pass.age;
-      owner = "nextcloud";
+      owner = "nextcloud"; #NOTE: not a clear 'nextcloud.service' or 'services.nextcloud.user'.
+    };
+    coder-env = mkIf server {
+      file = ./coder-env.age;
+      owner = abstrServiceUser "coder";
     };
   };
 }

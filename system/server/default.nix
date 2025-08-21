@@ -1,16 +1,17 @@
 {lib, ...}: {
   imports = [
+    # ./matrix.nix
     ./bot.nix
     ./caddy.nix
+    ./coder.nix
     ./derekBot.nix
     ./forgejo.nix
     ./immich.nix
     ./index
     ./mail.nix
-    ./matrix.nix
+    ./nextcloud.nix
     ./temp.nix
     ./zitadel.nix
-    ./nextcloud.nix
   ];
   options.niksos.server = lib.mkEnableOption "server servcies (such as caddy)."; #TODO: per service option.
 }

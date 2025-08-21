@@ -8,7 +8,7 @@
   host = "cloud.jsw.tf";
   nginxRoot = config.services.nginx.virtualHosts.${host}.root;
   fpmSocket = config.services.phpfpm.pools.nextcloud.socket;
-  imaginaryPort = 9005;
+  imaginaryPort = 9004;
 in {
   config = lib.mkIf server {
     users.groups.nextcloud.members = ["nextcloud" "caddy"];
