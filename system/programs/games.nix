@@ -41,6 +41,28 @@ in {
     # ];
 
     programs = {
+      gamemode = {
+        enable = true;
+        enableRenice = true;
+        settings = {
+          general = {
+            reaper_freq = 5;
+            softrealtime = "on";
+            renice = 0;
+          };
+
+          # WARNING: GPU optimisations have the potential to damage hardware!
+          gpu = {
+            apply_gpu_optimisations = "accept-responsibility";
+            gpu_device = 0;
+            amd_performance_level = "high";
+          };
+          custom = {
+            start = "${pkgs.libnotify}/bin/notify-send 'Game\'s on bitch.'";
+            end = "${pkgs.libnotify}/bin/notify-send 'Stopped gaming? :('";
+          };
+        };
+      };
       gamescope = {
         enable = true;
         capSysNice = true;
