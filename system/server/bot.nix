@@ -60,7 +60,10 @@ in {
       '';
     };
 
-    users.groups."dcbot" = {};
+    users.groups."dcbot" = {
+      members = ["nextcloud"]; #TODO: if config.niksos.server.nextcloud
+      #NOTE: for nextcloud mounted folder
+    };
     users.users."dcbot" = {
       group = "dcbot";
       isSystemUser = true;
