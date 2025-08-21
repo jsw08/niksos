@@ -53,10 +53,14 @@ in {
       steam = {
         enable = true;
 
+        extraPackages = [
+          pkgs.gamemode
+        ];
         extraCompatPackages = [
           pkgs.proton-ge-bin
         ];
 
+        extest.enable = true;
         gamescopeSession.enable = true;
       };
     };
