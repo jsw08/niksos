@@ -18,6 +18,7 @@ in {
       pkgs.oversteer
       pkgs.sidequest
       pkgs.azahar
+      pkgs.ficsit-cli
 
       # (
       #   pkgs.appimageTools.wrapType1 rec {
