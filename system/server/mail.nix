@@ -2,10 +2,15 @@
   config,
   lib,
   ...
-}: {
+}: let
+  name = "stalwart";
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
+in {
   #FIXME: revert when stopped using docker for stalwart. https://github.com/NixOS/nixpkgs/issues/416091 (look at older commits for previous code.)
 
-  config = lib.mkIf config.niksos.server {
+  options = import ./lib/webOptions.nix {inherit lib config name;};
+
+  config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers.stalwart = {
       image = "docker.io/stalwartlabs/stalwart:latest";
       labels = {
@@ -22,8 +27,11 @@
       465
     ];
 
-    services.caddy.virtualHosts."mail.jsw.tf".extraConfig = ''
-      reverse_proxy http://127.0.0.1:9003
-    '';
+    services.caddy = {
+      enable = true;
+      virtualHosts.${cfg.domain}.extraConfig = ''
+        reverse_proxy http://127.0.0.1:9003
+      '';
+    };
   };
 }

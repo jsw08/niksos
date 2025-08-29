@@ -3,13 +3,15 @@
   lib,
   ...
 }: let
-  cfg = config.niksos.server;
+  inherit (config.services.caddy) enable;
+  inherit (lib) mkIf;
 in {
-  services.caddy = {
-    enable = cfg;
-    email = "jurnwubben@gmail.com";
-    enableReload = false;
-  };
+  config = mkIf enable {
+    services.caddy = {
+      email = "jurnwubben@gmail.com";
+      enableReload = false;
+    };
 
-  networking.firewall.allowedTCPPorts = lib.mkIf cfg [80 443];
+    networking.firewall.allowedTCPPorts = [80 443];
+  };
 }

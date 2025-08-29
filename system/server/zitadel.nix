@@ -3,15 +3,22 @@
   lib,
   ...
 }: let
-  ExternalDomain = "z.jsw.tf";
+  name = "zitadel";
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
+
   Port = 9000;
 in {
+  options = import ./lib/webOptions.nix {inherit config lib name;};
+
   config =
-    lib.mkIf config.niksos.server
+    lib.mkIf cfg.enable
     {
-      services.caddy.virtualHosts.${ExternalDomain}.extraConfig = ''
-        reverse_proxy localhost:${builtins.toString Port}
-      '';
+      services.caddy = {
+        enable = true;
+        virtualHosts.${cfg.domain}.extraConfig = ''
+          reverse_proxy localhost:${builtins.toString Port}
+        '';
+      };
 
       # services.zitadel = {
       #   enable = true;
@@ -32,8 +39,10 @@ in {
           enable = true;
           masterKeyFile = config.age.secrets.zitadel-key.path;
           settings = {
-            inherit Port ExternalDomain;
+            inherit Port;
+            ExternalDomain = cfg.domain;
             ExternalPort = 443;
+
             Database.postgres = {
               Host = "/var/run/postgresql/";
               Port = 5432;
@@ -53,9 +62,9 @@ in {
           steps.FirstInstance = {
             InstanceName = "jsw";
             Org = {
-              Name = "jsw";
+              Name = "jsw-admin";
               Human = {
-                UserName = "jsw@jsw.tf";
+                UserName = "jsw-admin@jsw.tf";
                 FirstName = "Jurn";
                 LastName = "Wubben";
                 Email.Verified = true;

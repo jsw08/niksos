@@ -34,7 +34,7 @@
       };
     };
     neovim = false;
-    server = false;
+    # server = false;
   };
 
   #NOTE: Old info

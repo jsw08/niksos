@@ -3,36 +3,37 @@
   lib,
   ...
 }: let
-  database = {
-    connection_string = "postgres:///dendrite?host=/run/postgresql";
-    max_open_conns = 97;
-    max_idle_conns = 5;
-    conn_max_lifetime = -1;
-  };
-  host = "matrix.jsw.tf";
+  name = "matrix";
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
 in {
-  config = lib.mkIf config.niksos.server {
+  options = import ./lib/webOptions.nix {inherit config lib name;};
+
+  config = lib.mkIf cfg.enable {
     services = {
       matrix-continuwuity = {
         enable = true;
         group = "caddy"; # Permissions for socket
+        #FIXME: caddy should be part of matrix group, not other way around
         settings.global = {
           unix_socket_path = "/run/continuwuity/continuwuity.sock";
-          server_name = host;
+          server_name = cfg.domain;
           allow_registration = true;
           registration_token_file = config.age.secrets.matrix-registration.path;
           new_user_displayname_suffix = "";
         };
       };
 
-      caddy.virtualHosts = {
-        ${host}.extraConfig = ''
-          header /.well-known/matrix/* Content-Type application/json
-          header /.well-known/matrix/* Access-Control-Allow-Origin *
-          respond /.well-known/matrix/server `{"m.server": "${host}:443"}`
-          respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://${host}"}}`
-          reverse_proxy /_matrix/* unix//run/continuwuity/continuwuity.sock
-        '';
+      caddy = {
+        enable = true;
+        virtualHosts = {
+          ${cfg.domain}.extraConfig = ''
+            header /.well-known/matrix/* Content-Type application/json
+            header /.well-known/matrix/* Access-Control-Allow-Origin *
+            respond /.well-known/matrix/server `{"m.server": "${cfg.domain}:443"}`
+            respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://${cfg.domain}"}}`
+            reverse_proxy /_matrix/* unix//run/continuwuity/continuwuity.sock
+          '';
+        };
       };
     };
   };

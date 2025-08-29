@@ -4,26 +4,26 @@
   lib,
   ...
 }: let
-  cfg = config.niksos.server;
-  userGroup = "bread-dcbot";
+  name = "derek-bot";
+  cfg = config.niksos.server.${name}.enable;
+
+  userGroup = name;
   gitRepo = "https://github.com/The-Breadening/Breadener";
 
-  bash = lib.getExe pkgs.bash;
+  inherit (lib) getExe mkEnableOption mkIf;
+  bash = getExe pkgs.bash;
+
   varLib = "/var/lib/";
-  mainDir =
-    varLib
-    + (
-      if !cfg
-      then ""
-      else userGroup
-    )
-    + "/";
-  programDir = mainDir + "program";
-  denoDir = mainDir + "deno";
-  tokenDir = mainDir + "Breadener-token";
+  mainDir = "${varLib}${userGroup}";
+  programDir = "${mainDir}/program";
+  denoDir = "${mainDir}/deno";
+  tokenDir = "${mainDir}/Breadener-token";
+
   path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.deno pkgs.git]);
 in {
-  config = lib.mkIf config.niksos.server {
+  options.niksos.server.${name}.enable = mkEnableOption name;
+
+  config = mkIf cfg {
     systemd.services.${userGroup} = {
       enable = true;
       after = ["network.target"];
@@ -39,7 +39,7 @@ in {
         export PATH=${path}
 
         cd "${mainDir}"
-        chown -R ${userGroup}:${userGroup} ${mainDir}* || echo
+        chown -R ${userGroup}:${userGroup} ${mainDir}/* || echo
 
         rm -rf "${tokenDir}" || echo
         mkdir -p "${denoDir}" "${tokenDir}"
@@ -48,7 +48,7 @@ in {
         if [ ! -d "${programDir}" ]; then
           git clone "${gitRepo}" "${programDir}"
         fi
-        chmod -R 750 ${mainDir}* || echo
+        chmod -R 750 ${mainDir}/* || echo
 
 
         cd "${programDir}"
