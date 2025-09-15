@@ -55,6 +55,11 @@ in {
         git fetch
         git reset --hard origin/HEAD
 
+        cat > .env <<EOF
+        DATABASE_PATH='../daataabaasaa.db'
+        SECRETS_PATH='../Breadener-token/prodBot.json'
+        EOF
+
         DENO_DIR=${denoDir} deno i
       '';
 
@@ -64,7 +69,7 @@ in {
         User = userGroup;
         Group = userGroup;
         Restart = "always";
-        RuntimeMaxSec = 6 * 60 * 60; # 6h * 60min * 60s
+        RuntimeMaxSec = 1 * 60 * 60; # 1h * 60min * 60s
       };
     };
 
