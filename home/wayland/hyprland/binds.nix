@@ -64,6 +64,9 @@
       ]
     )
     10);
+
+  volumeUp = "${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+";
+  volumeDown = "${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-";
 in {
   wayland.windowManager.hyprland.settings = {
     "$m" = "ALT";
@@ -138,10 +141,20 @@ in {
 
     bindle = [
       # volume
-      ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
-      ", XF86AudioLowerVolume, exec, ${wpctl} set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
+      ", XF86AudioRaiseVolume, exec, ${volumeUp}"
+      ", XF86AudioLowerVolume, exec, ${volumeDown}"
       ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
       ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
+    ];
+
+    gesture = [
+      "3, down, close"
+      "3, up, fullscreen"
+      "3, horizontal, workspace"
+      "4, left, dispatcher, exec, ${playerctl} previous"
+      "4, right, dispatcher, exec,  ${playerctl} next"
+      "4, up, dispatcher, exec, ${volumeUp}"
+      "4, down, dispatcher, exec, ${volumeDown}"
     ];
   };
 }

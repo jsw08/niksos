@@ -74,12 +74,6 @@
       };
     };
 
-    gestures = {
-      workspace_swipe = true;
-      workspace_swipe_forever = true;
-      workspace_swipe_direction_lock = false;
-    };
-
     dwindle = {
       pseudotile = true;
       preserve_split = true;
@@ -97,6 +91,7 @@
       "float, class:foot-somcli"
       "size >30% >30%, class:foot-somcli"
     ];
+
     #NOTE: Also check home/wayland/hyprland/binds + system/hardware/fingerprint
   };
 }

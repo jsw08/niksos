@@ -9,7 +9,7 @@
 in {
   config = lib.mkIf cfg.enable {
     services = {
-      logind = {
+      logind.settings.Login = {
         powerKey = "suspend-then-hibernate";
         powerKeyLongPress = "poweroff";
       };
