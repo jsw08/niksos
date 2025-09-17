@@ -59,5 +59,5 @@
     AllowHybridSleep=no
     AllowSuspendThenHibernate=no
   '';
-  services.logind.lidSwitchExternalPower = "ignore"; # INFO: Above apparantly wasn't enough. logind is flooding my logs.
+  services.logind.settings.Login.lidSwitchExternalPower = "ignore"; # INFO: Above apparantly wasn't enough. logind is flooding my logs.
 }
