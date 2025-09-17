@@ -13,10 +13,10 @@ in {
   config = mkIf hardware.fingerprint {
     services = {
       fprintd.enable = true;
-      logind.extraConfig = mkIf hypr ''
+      logind.settings.Login = mkIf hypr {
         # don’t shutdown when power button is short-pressed
-        HandlePowerKey=ignore
-      '';
+        HandlePowerKey = "ignore";
+      };
     };
 
     home-manager.users.jsw.wayland.windowManager.hyprland.settings = mkIf hypr {

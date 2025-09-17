@@ -13,7 +13,6 @@
       pkgs.gimp
       pkgs.inkscape
       pkgs.thunderbird
-      pkgs.stremio
     ]
     ++ lib.optional osConfig.niksos.hardware.portable.enable self.packages.${pkgs.system}.visicut;
 }

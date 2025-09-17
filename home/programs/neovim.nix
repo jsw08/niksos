@@ -53,12 +53,16 @@
 
         ts = {
           enable = true;
-          lsp.server = "ts_ls";
+          lsp.server = "denols";
           extensions.ts-error-translator.enable = true;
         };
         clang = {
           enable = true;
           lsp.enable = true;
+        };
+        typst = {
+          enable = true;
+          format.type = "typstyle";
         };
 
         bash.enable = true;
@@ -67,7 +71,6 @@
         markdown.enable = true;
         nix.enable = true;
         svelte.enable = true;
-        typst.enable = true;
         rust.enable = true;
         python.enable = true;
       };

@@ -4,18 +4,24 @@
   lib,
   ...
 }: let
-  inherit (config.niksos) server;
-  host = "cloud.jsw.tf";
-  nginxRoot = config.services.nginx.virtualHosts.${host}.root;
+  name = "nextcloud";
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
+
+  inherit (cfg) enable domain;
+
+  nginxRoot = config.services.nginx.virtualHosts.${domain}.root;
   fpmSocket = config.services.phpfpm.pools.nextcloud.socket;
   imaginaryPort = 9004;
 in {
-  config = lib.mkIf server {
+  options = import ./lib/webOptions.nix {inherit config lib name;};
+
+  config = lib.mkIf enable {
     users.groups.nextcloud.members = ["nextcloud" "caddy"];
+
     services = {
       nextcloud = {
         enable = true;
-        hostName = host;
+        hostName = domain;
 
         # Need to manually increment with every major upgrade.
         package = pkgs.nextcloud31;
@@ -77,12 +83,12 @@ in {
           dbtype = "pgsql";
         };
       };
-      imaginary = {
-        enable = true;
-        port = imaginaryPort;
-        address = "localhost";
-        settings.returnSize = true;
-      };
+      # imaginary = { #FIXME: doesn't start.
+      #   enable = true;
+      #   port = imaginaryPort;
+      #   address = "localhost";
+      #   settings.returnSize = true;
+      # };
 
       nginx.enable = lib.mkForce false;
       phpfpm.pools.nextcloud.settings = let
@@ -91,58 +97,62 @@ in {
         "listen.owner" = user;
         "listen.group" = group;
       };
-      caddy.virtualHosts."${host}".extraConfig = ''
-        encode zstd gzip
 
-        root * ${nginxRoot}
+      caddy = {
+        enable = true;
+        virtualHosts.${domain}.extraConfig = ''
+          encode zstd gzip
 
-        redir /.well-known/carddav /remote.php/dav 301
-        redir /.well-known/caldav /remote.php/dav 301
-        redir /.well-known/* /index.php{uri} 301
-        redir /remote/* /remote.php{uri} 301
+          root * ${nginxRoot}
 
-        header {
-          Strict-Transport-Security max-age=31536000
-          Permissions-Policy interest-cohort=()
-          X-Content-Type-Options nosniff
-          X-Frame-Options SAMEORIGIN
-          Referrer-Policy no-referrer
-          X-XSS-Protection "1; mode=block"
-          X-Permitted-Cross-Domain-Policies none
-          X-Robots-Tag "noindex, nofollow"
-          -X-Powered-By
-        }
+          redir /.well-known/carddav /remote.php/dav 301
+          redir /.well-known/caldav /remote.php/dav 301
+          redir /.well-known/* /index.php{uri} 301
+          redir /remote/* /remote.php{uri} 301
 
-        php_fastcgi unix/${fpmSocket} {
-          root ${nginxRoot}
-          env front_controller_active true
-          env modHeadersAvailable true
-        }
+          header {
+            Strict-Transport-Security max-age=31536000
+            Permissions-Policy interest-cohort=()
+            X-Content-Type-Options nosniff
+            X-Frame-Options SAMEORIGIN
+            Referrer-Policy no-referrer
+            X-XSS-Protection "1; mode=block"
+            X-Permitted-Cross-Domain-Policies none
+            X-Robots-Tag "noindex, nofollow"
+            -X-Powered-By
+          }
 
-        @forbidden {
-          path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
-          path /.* /autotest* /occ* /issue* /indie* /db_* /console*
-          not path /.well-known/*
-        }
-        error @forbidden 404
+          php_fastcgi unix/${fpmSocket} {
+            root ${nginxRoot}
+            env front_controller_active true
+            env modHeadersAvailable true
+          }
 
-        @immutable {
-          path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
-          query v=*
-        }
-        header @immutable Cache-Control "max-age=15778463, immutable"
+          @forbidden {
+            path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
+            path /.* /autotest* /occ* /issue* /indie* /db_* /console*
+            not path /.well-known/*
+          }
+          error @forbidden 404
 
-        @static {
-          path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
-          not query v=*
-        }
-        header @static Cache-Control "max-age=15778463"
+          @immutable {
+            path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
+            query v=*
+          }
+          header @immutable Cache-Control "max-age=15778463, immutable"
 
-        @woff2 path *.woff2
-        header @woff2 Cache-Control "max-age=604800"
+          @static {
+            path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
+            not query v=*
+          }
+          header @static Cache-Control "max-age=15778463"
 
-        file_server
-      '';
+          @woff2 path *.woff2
+          header @woff2 Cache-Control "max-age=604800"
+
+          file_server
+        '';
+      };
     };
   };
 }

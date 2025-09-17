@@ -5,20 +5,29 @@
   inputs,
   ...
 }: let
-  deno = lib.getExe pkgs.deno;
-  bash = lib.getExe pkgs.bash;
+  name = "jsw-bot";
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
 
-  mainDir = "/var/lib/dcbot/";
+  inherit (lib) getExe mkIf optional;
+  inherit (config.niksos.server) nextcloud;
+
+  bash = getExe pkgs.bash;
+
+  mainDir = "/var/lib/${name}/";
   programDir = mainDir + "program";
   dataDir = mainDir + "data";
   denoDir = mainDir + "deno";
 
   path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.typst pkgs.deno]);
 in {
-  config = lib.mkIf config.niksos.server {
-    systemd.services.dcbot = {
+  options = import ./lib/webOptions.nix {
+    inherit config lib name;
+  };
+
+  config = mkIf cfg.enable {
+    systemd.services.${name} = {
       enable = true;
-      after = ["network.target"];
+      after = ["network.target"]; #FIXME: doesn't start after network.
       wantedBy = ["default.target"];
       description = "Jsw's slaafje, discord bot.";
 
@@ -33,39 +42,41 @@ in {
         cd "${mainDir}"
         mkdir -p "${programDir}" "${dataDir}" "${denoDir}"
 
-        chown -R dcbot:dcbot ${mainDir}* || echo
+        chown -R ${name}:${name} ${mainDir}* || echo
         chmod -R 750 ${mainDir}* || echo
         cp --no-preserve=mode,ownership -r ${inputs.dcbot}/* "${programDir}/"
 
         rm "${dataDir}/.env" || echo
-        ln -s "${config.age.secrets.dcbot.path}" "${dataDir}/.env"
+        ln -s "${config.age.secrets.jsw-bot.path}" "${dataDir}/.env"
 
         cd "${programDir}"
         DENO_DIR=${denoDir} deno i
       '';
 
       serviceConfig = {
-        StateDirectory = "dcbot";
+        StateDirectory = name;
         ExecStart = "${bash} -c 'cd ${dataDir} && deno run -A ${programDir}/src/main.ts'";
-        User = "dcbot";
-        Group = "dcbot";
+        User = name;
+        Group = name;
         Restart = "always";
       };
     };
 
-    services.caddy.virtualHosts."dc.jsw.tf" = {
-      serverAliases = ["www.dc.jsw.tf"];
-      extraConfig = ''
-        reverse_proxy :9001
-      '';
+    services.caddy = {
+      enable = true;
+      virtualHosts.${cfg.domain} = {
+        extraConfig = ''
+          reverse_proxy :9001
+        '';
+      };
     };
 
-    users.groups."dcbot" = {
-      members = ["nextcloud"]; #TODO: if config.niksos.server.nextcloud
+    users.groups.${name} = {
+      members = optional nextcloud.enable "nextcloud"; #TODO: if config.niksos.server.nextcloud
       #NOTE: for nextcloud mounted folder
     };
-    users.users."dcbot" = {
-      group = "dcbot";
+    users.users.${name} = {
+      group = name;
       isSystemUser = true;
     };
   };

@@ -23,7 +23,7 @@
           "callTimer"
           "clearURLs"
           "copyFileContents"
-          "emoteCloner"
+          # "emoteCloner"
           "fakeNitro"
           "fixYoutubeEmbeds"
           "friendsSince"

@@ -14,8 +14,8 @@ let
   keys = users ++ devices;
 in {
   "password.age".publicKeys = keys;
-  "dcbot.age".publicKeys = keys;
-  "bread-dcbot.age".publicKeys = keys;
+  "jsw-bot.age".publicKeys = keys;
+  "derek-bot.age".publicKeys = keys;
   "matrix-registration.age".publicKeys = keys;
   "mail-admin.age".publicKeys = keys;
   "zitadel-key.age".publicKeys = keys;

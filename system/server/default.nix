@@ -1,16 +1,24 @@
-{lib, ...}: {
+{lib, ...}: let
+  inherit (lib) mkOption types;
+in {
   imports = [
     # ./matrix.nix
-    ./bot.nix
+    # ./temp.nix
+    ./jsw-bot.nix
     ./caddy.nix
-    ./derekBot.nix
+    ./derek-bot.nix
     ./forgejo.nix
     ./immich.nix
     ./index
     ./mail.nix
     ./nextcloud.nix
-    ./temp.nix
     ./zitadel.nix
   ];
-  options.niksos.server = lib.mkEnableOption "server servcies (such as caddy)."; #TODO: per service option.
+  options.niksos.server = {
+    baseDomain = mkOption {
+      type = types.lines;
+      description = "Set's the apex domain for the webservices. Do not include 'https' or a slash at the end. Just 'example.com'.";
+      example = "example.com";
+    };
+  };
 }

@@ -3,17 +3,24 @@
   lib,
   ...
 }: let
-  DOMAIN = "git.jsw.tf";
+  name = "forgejo";
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
+
+  DOMAIN = cfg.domain;
 in {
+  options = import ./lib/webOptions.nix {inherit config lib name;};
   config =
-    lib.mkIf config.niksos.server
+    lib.mkIf cfg.enable
     {
-      services.caddy.virtualHosts.${DOMAIN}.extraConfig = ''
-        request_body {
-            max_size 512M
-        }
-        reverse_proxy unix/${config.services.forgejo.settings.server.HTTP_ADDR}
-      '';
+      services.caddy = {
+        enable = true;
+        virtualHosts.${DOMAIN}.extraConfig = ''
+          request_body {
+              max_size 512M
+          }
+          reverse_proxy unix/${config.services.forgejo.settings.server.HTTP_ADDR}
+        '';
+      };
 
       services.forgejo = {
         enable = true;
@@ -52,12 +59,13 @@ in {
             DEFAULT_ACTIONS_URL = "github";
           };
           mailer = {
+            #FIXME: Only enable if stalwart is enabled by default.
             ENABLED = true;
             SUBJECT_PREFIX = "JSWGit";
             PROTOCOL = "smtps";
-            SMTP_ADDR = "mail.jsw.tf"; #FIXME: replace with config... to stalwart setting once using stalwart nixos module.
+            SMTP_ADDR = "mail.${cfg.baseDomain}"; #FIXME: replace with config... to stalwart setting once using stalwart nixos module.
             SMTP_PORT = 465;
-            FROM = "git@jsw.tf";
+            FROM = "git@${cfg.baseDomain}";
             USER = "git";
             PASSWD_URI = "file:${config.age.secrets.forgejo-mailpass.path}";
           };

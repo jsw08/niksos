@@ -1,13 +1,16 @@
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
-    # ./virt.nix
+    ./virt.nix
   ];
 
   # programs.appimage.enable = true;
   # programs.evolution.enable = true; # TODO: move to appropiate place.
 
-  # ! HII
   niksos = {
     hardware = {
       joycond = false; #NOTE: enable when game night lol
@@ -38,6 +41,26 @@
     };
   };
   home-manager.users.jsw.wayland.windowManager.hyprland.settings.monitor = ["eDP-1,2880x1920@120,0x0,1.5,vrr,1"];
+
+  #FIXME: unity
+  nixpkgs.config.permittedInsecurePackages = ["libxml2-2.13.8"];
+  environment = {
+    etc.vscode.source = lib.getExe pkgs.vscodium;
+    systemPackages = let
+      unityhub = pkgs.unityhub.overrideAttrs (prevAttrs: {
+        nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [pkgs.makeBinaryWrapper];
+
+        postInstall =
+          (prevAttrs.postInstall or "")
+          + ''
+            wrapProgram $out/bin/unityhub --set GDK_SCALE 2 --set GDK_DPI_SCALE 0.5
+          '';
+      });
+    in [
+      unityhub
+    ];
+  };
+  #ENDFIXME
 
   services.udev.extraRules = ''
     # Ethernet expansion card support

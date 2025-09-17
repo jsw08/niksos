@@ -20,7 +20,7 @@
   nix = let
     flakeInputs = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
   in {
-    package = pkgs.lix;
+    # package = pkgs.lix;
 
     # pin the registry to avoid downloading and evaling a new nixpkgs version every time
     registry = lib.mapAttrs (_: v: {flake = v;}) flakeInputs;
@@ -31,7 +31,7 @@
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = ["nix-command" "flakes"];
       flake-registry = "/etc/nix/registry.json";
 
       # for direnv GC roots

@@ -4,23 +4,29 @@
   pkgs,
   ...
 }: let
+  name = "immich";
   inherit (lib) mkIf mkForce mkDefault;
 
-  cfg = config.niksos.server;
+  cfg = import ./lib/extractWebOptions.nix {inherit config name;};
+
   oidcSubstitute = "*@#OPENIDCLIENTSECRET#@*";
   config-dir = "/run/immich-conf";
-  url = "photos.jsw.tf";
-  httpsUrl = "https://" + url;
+  httpsUrl = "https://" + cfg.domain;
 in {
-  config =
-    mkIf cfg
-    {
-      users.users.${config.services.immich.user}.extraGroups = ["video" "render"];
-      services.caddy.virtualHosts.${url}.extraConfig = ''
-        reverse_proxy localhost:9002
-      '';
+  options = import ./lib/webOptions.nix {inherit config lib name;};
 
-      services.immich = mkIf cfg {
+  config =
+    mkIf cfg.enable
+    {
+      services.caddy = {
+        enable = true;
+        virtualHosts.${cfg.domain}.extraConfig = ''
+          reverse_proxy localhost:9002
+        '';
+      };
+
+      users.users.${config.services.immich.user}.extraGroups = ["video" "render"];
+      services.immich = {
         enable = true;
 
         port = 9002;
