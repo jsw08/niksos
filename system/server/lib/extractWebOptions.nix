@@ -11,8 +11,8 @@
     then ""
     else "${cfg.subDomain}.";
 in
+  cfg // 
   {
-    domain = "${subDomain}.${baseDomain}";
-    inherit baseDomain;
+    domain = "${subDomain}${baseDomain}";
+    inherit baseDomain subDomain;
   }
-  // cfg

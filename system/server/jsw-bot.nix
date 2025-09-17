@@ -13,7 +13,7 @@
 
   bash = getExe pkgs.bash;
 
-  mainDir = "/var/lib/dcbot/";
+  mainDir = "/var/lib/${name}/";
   programDir = mainDir + "program";
   dataDir = mainDir + "data";
   denoDir = mainDir + "deno";
@@ -71,12 +71,12 @@ in {
       };
     };
 
-    users.groups."dcbot" = {
+    users.groups.${name} = {
       members = optional nextcloud.enable "nextcloud"; #TODO: if config.niksos.server.nextcloud
       #NOTE: for nextcloud mounted folder
     };
-    users.users."dcbot" = {
-      group = "dcbot";
+    users.users.${name} = {
+      group = name;
       isSystemUser = true;
     };
   };
