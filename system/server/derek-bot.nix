@@ -76,7 +76,32 @@ in {
     users.groups.${userGroup} = {};
     users.users.${userGroup} = {
       group = userGroup;
-      isSystemUser = true;
+      isNormalUser = true;
+      home = "/home/${userGroup}";
     };
+    security.polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+	if (action.id == "org.freedesktop.systemd1.manage-units" &&
+	  action.lookup("unit") == "${userGroup}.service" &&
+	  subject.user == "${userGroup}") {
+	  return polkit.Result.YES;
+	}
+      });
+      polkit.addRule(function(action, subject) {
+	  if (
+	      subject.user == "${userGroup}" &&
+	      (
+		action.id == "org.freedesktop.login1.power-off" ||
+		action.id == "org.freedesktop.login1.power-off-ignore-inhibit" ||
+		action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
+		action.id == "org.freedesktop.login1.reboot" ||
+		action.id == "org.freedesktop.login1.reboot-ignore-inhibit" ||
+		action.id == "org.freedesktop.login1.reboot-multiple-sessions"
+	      )
+	  ) {
+	      return polkit.Result.NO;
+	  }
+      });
+    '';
   };
 }
