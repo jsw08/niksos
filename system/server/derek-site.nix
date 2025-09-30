@@ -23,6 +23,9 @@ in {
   options.niksos.server.${name}.enable = mkEnableOption name;
 
   config = mkIf cfg {
+    services.caddy.virtualHosts."geen-dolfijn.nl".extraConfig = ''
+      reverse_proxy http://127.0.0.1:9010
+    '';
     systemd.services.${userGroup} = {
       enable = true;
       after = ["network.target"];
