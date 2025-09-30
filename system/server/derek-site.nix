@@ -56,7 +56,8 @@ in {
         git fetch
         git reset --hard origin/HEAD
 
-        DENO_DIR=${denoDir} deno i
+        DENO_DIR=${denoDir} deno i --allow-scripts=npm:workerd,npm:sharp
+        DENO_DIR=${denoDir} deno run build
       '';
 
       serviceConfig = {
