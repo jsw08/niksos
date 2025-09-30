@@ -22,6 +22,10 @@ in {
       file = ./derek-bot.age;
       owner = "derek-bot";
     };
+    derek-site = isEnabled "derek-site" {
+      file = ./derek-bot.age;
+      owner = "derek-site";
+    };
     # matrix-registration = isEnabled "matrix" {
     #   file = ./matrix-registration.age;
     #   owner = abstrServiceUser "matrix-continuwuity";

@@ -16,6 +16,7 @@ in {
   "password.age".publicKeys = keys;
   "jsw-bot.age".publicKeys = keys;
   "derek-bot.age".publicKeys = keys;
+  "derek-site.age".publicKeys = keys;
   "matrix-registration.age".publicKeys = keys;
   "mail-admin.age".publicKeys = keys;
   "zitadel-key.age".publicKeys = keys;

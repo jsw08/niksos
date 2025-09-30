@@ -7,6 +7,7 @@ in {
     ./jsw-bot.nix
     ./caddy.nix
     ./derek-bot.nix
+    ./derek-site.nix
     ./forgejo.nix
     ./immich.nix
     ./index
