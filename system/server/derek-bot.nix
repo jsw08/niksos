@@ -80,13 +80,18 @@ in {
       home = "/home/${userGroup}";
     };
     security.polkit.extraConfig = ''
-      polkit.addRule(function(action, subject) {
-	if (action.id == "org.freedesktop.systemd1.manage-units" &&
-	  action.lookup("unit") == "${userGroup}.service" &&
-	  subject.user == "${userGroup}") {
-	  return polkit.Result.YES;
-	}
-      });
+	polkit.addRule(function(action, subject) {
+	    polkit.log("Rule triggered. Action: " + action.id + " Unit: " + action.lookup("unit") + " User: " + subject.user);
+
+	    // For journalctl access
+	    if ((action.id == "org.freedesktop.systemd1.manage-units" || 
+		 action.id == "org.freedesktop.systemd1.unit-journal") &&
+		action.lookup("unit") == "${userGroup}.service" &&
+		subject.user == "${userGroup}") {
+		polkit.log("ALLOWING access for " + subject.user);
+		return polkit.Result.YES;
+	    }
+	});
       polkit.addRule(function(action, subject) {
 	  if (
 	      subject.user == "${userGroup}" &&
