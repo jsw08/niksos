@@ -18,14 +18,7 @@
   programDir = "${mainDir}/program";
   denoDir = "${mainDir}/deno";
 
-  path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.deno pkgs.git]);
-  run = pkgs.writeShellScriptBin "geen-dolfijn" ''
-    export PATH="${path}"
-    export $(grep -v '^#' "${config.age.secrets.${userGroup}.path}" | xargs)
-
-    cd "${programDir}"
-    deno run preview
-  '';
+  path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.deno pkgs.git pkgs.nodejs]);
 in {
   options.niksos.server.${name}.enable = mkEnableOption name;
 
@@ -56,15 +49,15 @@ in {
         git fetch
         git reset --hard origin/HEAD
 
-        cp "${config.age.secrets.${userGroup}.path}" "./src/lib/secretData.json"
+        cp "${config.age.secrets.${userGroup}.path}" "./src/lib/secrets.json"
 
         DENO_DIR=${denoDir} deno i --allow-scripts=npm:workerd,npm:sharp
-        DENO_DIR=${denoDir} deno run build
+        DENO_DIR=${denoDir} deno run build || echo oopsie woopsie error
       '';
 
       serviceConfig = {
         StateDirectory = userGroup;
-        ExecStart = "${bash} -c 'cd ${programDir} && deno run previw'";
+        ExecStart = "${bash} -c 'cd ${programDir} && deno run preview --port 9010'";
         User = userGroup;
         Group = userGroup;
         Restart = "always";
