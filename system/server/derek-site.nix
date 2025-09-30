@@ -65,7 +65,6 @@ in {
         User = userGroup;
         Group = userGroup;
         Restart = "always";
-        RuntimeMaxSec = 1 * 60 * 60; # 1h * 60min * 60s
       };
     };
 
