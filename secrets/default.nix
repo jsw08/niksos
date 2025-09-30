@@ -23,7 +23,7 @@ in {
       owner = "derek-bot";
     };
     derek-site = isEnabled "derek-site" {
-      file = ./derek-bot.age;
+      file = ./derek-site.age;
       owner = "derek-site";
     };
     # matrix-registration = isEnabled "matrix" {

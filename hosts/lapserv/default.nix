@@ -10,6 +10,7 @@
     server = {
       baseDomain = "jsw.tf";
       derek-bot.enable = true;
+      derek-site.enable = true;
       forgejo = {
         enable = true;
         subDomain = "git";

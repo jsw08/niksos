@@ -48,6 +48,7 @@ in {
         cd "${programDir}"
         git fetch
         git reset --hard origin/HEAD
+        rm -rf build || echo no build here lol
 
         cp "${config.age.secrets.${userGroup}.path}" "./src/lib/secrets.json"
 
@@ -57,7 +58,7 @@ in {
 
       serviceConfig = {
         StateDirectory = userGroup;
-        ExecStart = "${bash} -c 'cd ${programDir} && deno run preview --port 9010'";
+        ExecStart = "${bash} -c 'cd ${programDir} && deno run preview --host --port 9010'";
         User = userGroup;
         Group = userGroup;
         Restart = "always";
@@ -68,7 +69,7 @@ in {
     users.groups.${userGroup} = {};
     users.users.${userGroup} = {
       group = userGroup;
-      isSystemUser = true;
+      isNormalUser = true;
     };
   };
 }
