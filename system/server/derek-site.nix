@@ -56,13 +56,15 @@ in {
         git fetch
         git reset --hard origin/HEAD
 
+        cp "${config.age.secrets.${userGroup}.path}" "./src/lib/secretData.json"
+
         DENO_DIR=${denoDir} deno i --allow-scripts=npm:workerd,npm:sharp
         DENO_DIR=${denoDir} deno run build
       '';
 
       serviceConfig = {
         StateDirectory = userGroup;
-        ExecStart = getExe run;
+        ExecStart = "${bash} -c 'cd ${programDir} && deno run previw'";
         User = userGroup;
         Group = userGroup;
         Restart = "always";
