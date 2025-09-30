@@ -20,9 +20,10 @@
 
   path = builtins.concatStringsSep ":" (map (x: "${x}/bin/") [pkgs.coreutils pkgs.deno pkgs.git]);
   run = pkgs.writeShellScriptBin "geen-dolfijn" ''
-    cd "${programDir}"
+    export PATH="${path}"
     export $(grep -v '^#' "${config.age.secrets.${userGroup}.path}" | xargs)
 
+    cd "${programDir}"
     deno run preview
   '';
 in {
